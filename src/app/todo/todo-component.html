@@ -1,0 +1,38 @@
+<section class="todo-component">
+    <h2>Todo App</h2>
+
+    <div class="todo-component__header">
+        <!--<button class="header__check-all">Check All</button>-->
+        <input type="text"
+           class="header__add-todo"
+           [(ngModel)]="newTodo"
+           (keyup.enter)="addTodo()"
+            placeholder="Note something to do">
+    </div>
+
+    <div *ngIf="displayMessage">
+        You can't create a TODO without a title right?;)
+    </div>
+
+    <div class="todo-component__list">
+        <ul>
+            <li *ngFor="let item of list" class="list-item">
+                <span *ngIf="!editingTodo">{{item.title}}</span> - -
+                <span (click)="editTodo(item)"> Edit </span>
+
+                <input type="text"
+                    [(ngModel)]="todoEditVal"
+                    *ngIf="editingTodo">
+            </li>
+        </ul>
+    </div>
+
+    <button type="button" class="todo-component__clear" (click)="clearTodos()">
+        Clear Everything!
+    </button>
+</section>
+
+<p>This comes from the test http call: </p>
+<p> <b>{{testList?.title}}</b></p>
+
+
