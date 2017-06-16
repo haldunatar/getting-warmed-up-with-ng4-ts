@@ -2,11 +2,15 @@ import { TestBed, async } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { Observable } from 'rxjs/Observable';
 
 import { TodoComponent } from '../todo.component';
 import { TodoService } from '../../todo/todo.service';
 
-let TodoServiceStub;
+let TodoServiceStub,
+    todoService,
+    testDataFromService,
+    todoList = [];
 
 describe('Todo Component', () => {
 
@@ -28,22 +32,29 @@ describe('Todo Component', () => {
 
         TodoServiceStub = {
             getTodos: function () {
-                return [{title: 'windsurfing', status: 'active'}];
+                return todoList;
             },
-            addTodos: function () {
-                return [{title: 'windsurfing', status: 'active'}];
+            addTodos: function (todo) {
+                todoList.push(todo);
             },
             clearList: function () {
                 return [{title: 'windsurfing', status: 'active'}];
             },
             getTestData: function() {
-                return '';
+                return {};
             }
         };
+
+        testDataFromService = {
+            "someKey": "some Val"
+        }
+
+
     }));
 
     const createCompInstance = () => {
         const fixture = TestBed.createComponent(TodoComponent);
+        todoService = fixture.debugElement.injector.get(TodoService);
         return fixture.debugElement.componentInstance;
     };
 
@@ -55,9 +66,19 @@ describe('Todo Component', () => {
 
     it('should initialize the todo component', async(() => {
         const comp = createCompInstance();
+        spyOn(todoService, 'getTestData').and.returnValue({ subscribe: () => {} });
 
         comp.ngOnInit();
 
         expect(comp.testTxt).toEqual('initialized!');
+    }));
+
+    it('should get todo list', async(() => {
+        const comp = createCompInstance();
+        spyOn(todoService, 'getTestData').and.returnValue({ subscribe: () => {} });
+
+        comp.ngOnInit();
+
+        expect(comp.list).toEqual(todoList);
     }));
 });

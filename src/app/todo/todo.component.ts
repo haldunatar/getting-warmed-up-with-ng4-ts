@@ -23,7 +23,6 @@ export class TodoComponent implements OnInit {
 
         this.list = this.todoService.getTodos() || [];
 
-        // Testing purposes;)
         this.todoService
             .getTestData()
             .subscribe(testList => this.testList = testList);
