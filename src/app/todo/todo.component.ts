@@ -25,7 +25,9 @@ export class TodoComponent implements OnInit {
 
         this.todoService
             .getTestData()
-            .subscribe(testList => this.testList = testList);
+            .subscribe((testList)  => {
+                this.testList = testList
+            });
 
     }
 

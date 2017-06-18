@@ -7,6 +7,10 @@ import {AppComponent} from '../../main/main.component';
 import {TodoComponent} from '../../todo/todo.component';
 import {TodoService} from '../../todo/todo.service';
 
+let fixture,
+    compiled,
+    app;
+
 describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -22,19 +26,22 @@ describe('AppComponent', () => {
             providers: [
                 TodoService
             ],
-        }).compileComponents();
+        })
+        .compileComponents()
+        .then(() => {
+            fixture = TestBed.createComponent(AppComponent);
+            app = fixture.debugElement.componentInstance;
+            compiled = fixture.debugElement.nativeElement;
+        });
     }));
 
     it('should create the app', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.debugElement.componentInstance;
         expect(app).toBeTruthy();
     }));
 
     it('should render title in a h2 tag', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
-        const compiled = fixture.debugElement.nativeElement;
+
         expect(compiled.querySelector('h2').textContent).toContain('Todo App');
     }));
 });

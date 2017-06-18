@@ -1,16 +1,41 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, tick, fakeAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 
 import { TodoComponent } from '../todo.component';
 import { TodoService } from '../../todo/todo.service';
 
-let TodoServiceStub,
-    todoService,
-    testDataFromService,
-    todoList = [];
+let todoService,
+    fixture,
+    comp,
+    todoList = [],
+    TodoServiceStub = {
+    getTodos: function () {
+        return todoList;
+    },
+    addTodos: function (todo) {
+        todoList.push(todo);
+    },
+    clearList: function () {
+        // clear todoList
+    },
+    getTestData: function() {
+        return {
+            userId: 1,
+            id: 1,
+            title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+            body: `quia et suscipit
+                    suscipit recusandae consequuntur expedita et cum
+                    reprehenderit molestiae ut ut quas totam
+                    nostrum rerum est autem sunt rem eveniet architecto`
+        }
+    }
+},
+    testDataFromService = [{
+        "someKey": "some Val"
+    }];
 
 describe('Todo Component', () => {
 
@@ -26,59 +51,43 @@ describe('Todo Component', () => {
                 HttpModule
             ],
             providers: [
-                {provide: TodoService, useValue: TodoServiceStub}
+                {
+                    provide: TodoService, useValue: TodoServiceStub
+                },
             ],
-        }).compileComponents();
+        })
+        .compileComponents()
+        .then(() => {
+            fixture = TestBed.createComponent(TodoComponent);
+            comp = fixture.debugElement.componentInstance;
 
-        TodoServiceStub = {
-            getTodos: function () {
-                return todoList;
-            },
-            addTodos: function (todo) {
-                todoList.push(todo);
-            },
-            clearList: function () {
-                return [{title: 'windsurfing', status: 'active'}];
-            },
-            getTestData: function() {
-                return {};
-            }
-        };
+            todoService = fixture.debugElement.injector.get(TodoService);
 
-        testDataFromService = {
-            "someKey": "some Val"
-        }
-
-
+            spyOn(todoService, 'getTestData').and.returnValue(
+                Observable.of(testDataFromService)
+            );
+        });
     }));
 
-    const createCompInstance = () => {
-        const fixture = TestBed.createComponent(TodoComponent);
-        todoService = fixture.debugElement.injector.get(TodoService);
-        return fixture.debugElement.componentInstance;
-    };
-
     it('should create the component', async(() => {
-        const comp = createCompInstance();
-
         expect(comp).toBeTruthy();
     }));
 
     it('should initialize the todo component', async(() => {
-        const comp = createCompInstance();
-        spyOn(todoService, 'getTestData').and.returnValue({ subscribe: () => {} });
-
         comp.ngOnInit();
 
         expect(comp.testTxt).toEqual('initialized!');
     }));
 
     it('should get todo list', async(() => {
-        const comp = createCompInstance();
-        spyOn(todoService, 'getTestData').and.returnValue({ subscribe: () => {} });
-
         comp.ngOnInit();
 
         expect(comp.list).toEqual(todoList);
     }));
+
+    it('should get data from the http call', async(() => {
+        comp.ngOnInit();
+
+        expect(comp.testList).toBe(testDataFromService);
+    }))
 });
