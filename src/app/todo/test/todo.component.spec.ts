@@ -89,5 +89,15 @@ describe('Todo Component', () => {
         comp.ngOnInit();
 
         expect(comp.testList).toBe(testDataFromService);
-    }))
+    }));
+
+    it('should add a todo', async(() => {
+        comp.newTodo = 'Windsurfing';
+        comp.list = [];
+
+        comp.addTodo();
+
+        const listState = todoService.getTodos();
+        expect(listState).toBe({title: 'Windsurfing', status: 'active'});
+    }));
 });

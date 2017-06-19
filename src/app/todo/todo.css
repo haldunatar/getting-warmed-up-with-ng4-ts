@@ -4,6 +4,20 @@
     text-align: center;
 }
 
+.todo-component {
+    width: 90%;
+    max-width: 400px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    margin: 20px auto;
+}
+
 .list-item {
     list-style-type: none;
+}
+
+.todo-warning {
+    color: red;
 }

@@ -2,7 +2,6 @@
     <h2>Todo App</h2>
 
     <div class="todo-component__header">
-        <!--<button class="header__check-all">Check All</button>-->
         <input type="text"
            class="header__add-todo"
            [(ngModel)]="newTodo"
@@ -10,19 +9,23 @@
             placeholder="Note something to do">
     </div>
 
-    <div *ngIf="displayMessage">
-        You can't create a TODO without a title right?;)
+    <div class="todo-warning" *ngIf="isEmptyWarning">
+        <b>You can't create a TODO without a title right?;)</b>
+    </div>
+
+    <div class="todo-warning" *ngIf="isSameWarning">
+        <b>This one is already exist!</b>
     </div>
 
     <div class="todo-component__list">
         <ul>
             <li *ngFor="let item of list" class="list-item">
-                <span *ngIf="!editingTodo">{{item.title}}</span> - -
-                <span (click)="editTodo(item)"> Edit </span>
+                <span *ngIf="!editingTodo"><b>{{item.title}}</b></span>
+                <span (click)="editTodo(item)"> -- Edit -- </span>
 
-                <input type="text"
-                    [(ngModel)]="todoEditVal"
-                    *ngIf="editingTodo">
+                <span (click)="checkTodo(item.title)"> -- Assign Todo As Done --</span>
+
+                <span (click)="removeTodo(item.title)"> -- Remove Item -- </span>
             </li>
         </ul>
     </div>
@@ -33,6 +36,11 @@
 </section>
 
 <p>This comes from the test http call: </p>
-<p> <b>{{testList?.title}}</b></p>
+
+<div *ngFor="let mData of testList">
+    <span>{{mData?.mockProp}}</span>
+</div>
+
+
 
 

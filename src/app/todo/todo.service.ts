@@ -7,11 +7,16 @@ import 'rxjs/add/operator/map';
 export class TodoService {
     constructor(private http: Http) { }
 
-    getTodos() {
+    getTodos(): Array<{}> {
         return JSON.parse(localStorage.getItem('todoList'));
     }
 
-    addTodos(listItem) {
+    addTodos(listItem: Object) {
+        return localStorage.setItem('todoList', JSON.stringify(listItem));
+    }
+
+    // This is a sampling method
+    upDateTodos(listItem: Object) {
         return localStorage.setItem('todoList', JSON.stringify(listItem));
     }
 
@@ -21,7 +26,7 @@ export class TodoService {
 
     getTestData(): Observable<[{}]> {
         return this.http
-            .get('https://jsonplaceholder.typicode.com/posts/1')
+            .get('http://www.mocky.io/v2/59481be91100002a12117634')
             .map(res => res.json())
     }
 }

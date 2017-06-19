@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { TodoService } from './todo.service';
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
     selector: 'todo-component',
@@ -10,9 +11,9 @@ import { TodoService } from './todo.service';
 export class TodoComponent implements OnInit {
     list: Array<{}>;
     newTodo: string;
-    displayMessage: boolean;
     editingTodo: boolean;
-    todoEditVal: string;
+    isEmptyWarning: boolean;
+    isSameWarning: boolean;
     testList: Object;
     testTxt: string;
 
@@ -26,13 +27,18 @@ export class TodoComponent implements OnInit {
         this.todoService
             .getTestData()
             .subscribe((testList)  => {
-                this.testList = testList
+                this.testList = testList;
             });
-
     }
 
     addTodo() {
-        if(this.newTodo !== '') {
+        const isExist = this.list.filter((item: any) => item.title === this.newTodo);
+
+        if(isExist.length > 0) {
+            this.isSameWarning = true;
+
+            setTimeout(() => this.isSameWarning = false, 1000);
+        } else if(this.newTodo !== '') {
             this.list.push({title: this.newTodo, status: 'active'});
 
             this.todoService.addTodos(this.list);
@@ -40,19 +46,28 @@ export class TodoComponent implements OnInit {
             this.newTodo = ''; // Clean Input field
 
         } else {
-            this.displayMessage = true;
+            this.isEmptyWarning = true;
 
-            setTimeout(() => this.displayMessage = false, 1000);
+            setTimeout(() => this.isEmptyWarning = false, 1000);
         }
     }
 
-    editTodo(todo) {
-        console.log(todo);
-        this.editingTodo = true;
+    checkTodo() {
+        return;
+    }
+
+    removeTodo(todoToRemove: String) {
+        this.list.forEach((todo: any, i:number) => {
+            if(todo.title === todoToRemove) {
+                this.list.splice(i, 1);
+
+                this.todoService.upDateTodos(this.list); // updateList
+            }
+        });
     }
 
     clearTodos() {
-        this.todoService.clearList();
         this.list = [];
+        this.todoService.clearList();
     }
 }
