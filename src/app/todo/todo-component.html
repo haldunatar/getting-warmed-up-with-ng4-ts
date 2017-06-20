@@ -1,13 +1,11 @@
 <section class="todo-component">
-    <h2>Todo App</h2>
+    <h2 class="todo-component__title">Todo App</h2>
 
-    <div class="todo-component__header">
-        <input type="text"
-           class="header__add-todo"
-           [(ngModel)]="newTodo"
-           (keyup.enter)="addTodo()"
-            placeholder="Note something to do">
-    </div>
+    <input type="text"
+        class="todo-input"
+        [(ngModel)]="newTodo"
+        (keyup.enter)="addTodo()"
+        placeholder="Note something to do">
 
     <div class="todo-warning" *ngIf="isEmptyWarning">
         <b>You can't create a TODO without a title right?;)</b>
@@ -19,13 +17,15 @@
 
     <div class="todo-component__list">
         <ul>
-            <li *ngFor="let item of list" class="list-item">
-                <span *ngIf="!editingTodo"><b>{{item.title}}</b></span>
-                <span (click)="editTodo(item)"> -- Edit -- </span>
+            <li *ngFor="let item of list.slice().reverse()" class="list-item">
+                <input type="checkbox" class="list-item__check" (click)="checkTodo(item.title)">
 
-                <span (click)="checkTodo(item.title)"> -- Assign Todo As Done --</span>
+                <span class="list-item__title" *ngIf="!editingTodo"><b>{{item.title}}</b></span>
 
-                <span (click)="removeTodo(item.title)"> -- Remove Item -- </span>
+                <!--<span (click)="editTodo(item)"> &#45;&#45; Edit &#45;&#45; </span>-->
+
+
+                <!--<span (click)="removeTodo(item.title)"> &#45;&#45; Remove Item &#45;&#45; </span>-->
             </li>
         </ul>
     </div>
