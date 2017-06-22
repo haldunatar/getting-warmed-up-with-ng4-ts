@@ -46,9 +46,14 @@
     border: 1px solid grey;
     border-radius: 100%;
     position: relative;
-    left: -10px;
-    top: -1px;
+    left: 0;
+    top: 0;
     background: #fff;
+}
+
+.todo-item--checked {
+    text-decoration: line-through;
+    color: grey;
 }
 
 .list-item__title {
@@ -58,7 +63,35 @@
     margin: 0;
     padding: 0;
     vertical-align: text-bottom;
+}
 
+.list-item__edit, .list-item__remove {
+    float: right;
+    width: 30px;
+    height: 30px;
+    border: 1px solid grey;
+    margin-right: 10px;
+    border-radius: 100%;
+    position: relative;
+    top: -1px;
+    right: -20px;
+    cursor: pointer;
+}
+
+.list-item__edit {
+    background: #f5f5f5;
+}
+
+.list-item__edit:hover {
+    background: #ececec;
+}
+
+.list-item__remove {
+    background: #ff6363;
+}
+
+.list-item__remove:hover {
+    background: #ff0000;
 }
 
 .todo-warning {

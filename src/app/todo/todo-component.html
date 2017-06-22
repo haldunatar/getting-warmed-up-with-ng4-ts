@@ -5,7 +5,7 @@
         class="todo-input"
         [(ngModel)]="newTodo"
         (keyup.enter)="addTodo()"
-        placeholder="Note something to do">
+        placeholder="Note something to do...">
 
     <div class="todo-warning" *ngIf="isEmptyWarning">
         <b>You can't create a TODO without a title right?;)</b>
@@ -18,14 +18,13 @@
     <div class="todo-component__list">
         <ul>
             <li *ngFor="let item of list.slice().reverse()" class="list-item">
-                <input type="checkbox" class="list-item__check" (click)="checkTodo(item.title)">
+                <input type="checkbox" class="list-item__check" [(ngModel)]="item.status" (click)="checkTodo(item)">
 
-                <span class="list-item__title" *ngIf="!editingTodo"><b>{{item.title}}</b></span>
+                <span class="list-item__title" [ngClass]="{'todo-item--checked': item.status}"><b>{{item.title}}</b></span>
 
-                <!--<span (click)="editTodo(item)"> &#45;&#45; Edit &#45;&#45; </span>-->
+                <span class="list-item__remove" (click)="removeTodo(item.title)">X</span>
 
-
-                <!--<span (click)="removeTodo(item.title)"> &#45;&#45; Remove Item &#45;&#45; </span>-->
+                <span class="list-item__edit" (click)="editTodo(item.title)">E</span>
             </li>
         </ul>
     </div>

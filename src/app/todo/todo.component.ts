@@ -31,7 +31,7 @@ export class TodoComponent implements OnInit {
             });
     }
 
-    addTodo() {
+    private addTodo() {
         const isExist = this.list.filter((item: any) => item.title === this.newTodo);
 
         if(isExist.length > 0) {
@@ -39,7 +39,7 @@ export class TodoComponent implements OnInit {
 
             setTimeout(() => this.isSameWarning = false, 1000);
         } else if(this.newTodo !== '') {
-            this.list.push({title: this.newTodo, status: 'active'});
+            this.list.push({title: this.newTodo, status: false});
 
             this.todoService.addTodos(this.list);
 
@@ -52,11 +52,11 @@ export class TodoComponent implements OnInit {
         }
     }
 
-    checkTodo() {
-        return;
+    private checkTodo() {
+        setTimeout(() => this.todoService.upDateTodos(this.list));
     }
 
-    removeTodo(todoToRemove: String) {
+    private removeTodo(todoToRemove: String) {
         this.list.forEach((todo: any, i:number) => {
             if(todo.title === todoToRemove) {
                 this.list.splice(i, 1);

@@ -11,12 +11,12 @@ export class TodoService {
         return JSON.parse(localStorage.getItem('todoList'));
     }
 
-    addTodos(listItem: Object) {
+    addTodos(listItem: Array<{}>) {
         return localStorage.setItem('todoList', JSON.stringify(listItem));
     }
 
     // This is a sampling method
-    upDateTodos(listItem: Object) {
+    upDateTodos(listItem: Array<{}>) {
         return localStorage.setItem('todoList', JSON.stringify(listItem));
     }
 
