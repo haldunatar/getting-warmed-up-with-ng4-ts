@@ -1,6 +1,5 @@
 import { Component, OnInit} from '@angular/core';
 import { TodoService } from './todo.service';
-import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
     selector: 'todo-component',

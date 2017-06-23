@@ -20,7 +20,9 @@
             <li *ngFor="let item of list.slice().reverse()" class="list-item">
                 <input type="checkbox" class="list-item__check" [(ngModel)]="item.status" (click)="checkTodo(item)">
 
-                <span class="list-item__title" [ngClass]="{'todo-item--checked': item.status}"><b>{{item.title}}</b></span>
+                <span class="list-item__title" [ngClass]="{'todo-item--checked': item.status}">
+                    <b>{{item.title | ellipsis: 15: '...'}}</b>
+                </span>
 
                 <span class="list-item__remove" (click)="removeTodo(item.title)">X</span>
 

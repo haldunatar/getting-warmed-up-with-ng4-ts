@@ -6,11 +6,13 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './main/main.component';
 import { TodoComponent } from './todo/todo.component';
 import { TodoService } from './todo/todo.service';
+import { Ellipsis } from './commons/pipes/ellipsis.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodoComponent
+    TodoComponent,
+      Ellipsis
   ],
   imports: [
     BrowserModule,
