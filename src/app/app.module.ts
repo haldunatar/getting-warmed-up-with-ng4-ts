@@ -12,7 +12,7 @@ import { Ellipsis } from './commons/pipes/ellipsis.pipe';
   declarations: [
     AppComponent,
     TodoComponent,
-      Ellipsis
+    Ellipsis
   ],
   imports: [
     BrowserModule,

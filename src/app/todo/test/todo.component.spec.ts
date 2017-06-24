@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { TodoComponent } from '../todo.component';
 import { TodoService } from '../../todo/todo.service';
-
+import { Ellipsis } from '../../commons/pipes/ellipsis.pipe';
 let todoService,
     fixture,
     comp,
@@ -43,7 +43,8 @@ describe('Todo Component', () => {
 
         TestBed.configureTestingModule({
             declarations: [
-                TodoComponent
+                TodoComponent,
+                Ellipsis
             ],
             imports: [
                 BrowserModule,
@@ -98,6 +99,6 @@ describe('Todo Component', () => {
         comp.addTodo();
 
         const listState = todoService.getTodos();
-        expect(listState).toBe({title: 'Windsurfing', status: 'active'});
+        expect(listState).toContain([{ title: 'Windsurfing', status: false }]);
     }));
 });

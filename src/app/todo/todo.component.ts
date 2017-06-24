@@ -30,14 +30,14 @@ export class TodoComponent implements OnInit {
             });
     }
 
-    private addTodo() {
+    addTodo() {
         const isExist = this.list.filter((item: any) => item.title === this.newTodo);
 
         if(isExist.length > 0) {
             this.isSameWarning = true;
 
             setTimeout(() => this.isSameWarning = false, 1000);
-        } else if(this.newTodo !== '') {
+        } else if(this.newTodo && this.newTodo !== '') {
             this.list.push({title: this.newTodo, status: false});
 
             this.todoService.addTodos(this.list);
@@ -51,11 +51,11 @@ export class TodoComponent implements OnInit {
         }
     }
 
-    private checkTodo() {
+    checkTodo() {
         setTimeout(() => this.todoService.upDateTodos(this.list));
     }
 
-    private removeTodo(todoToRemove: String) {
+    removeTodo(todoToRemove: String) {
         this.list.forEach((todo: any, i:number) => {
             if(todo.title === todoToRemove) {
                 this.list.splice(i, 1);

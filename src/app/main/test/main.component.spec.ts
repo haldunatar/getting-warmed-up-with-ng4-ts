@@ -6,6 +6,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from '../../main/main.component';
 import {TodoComponent} from '../../todo/todo.component';
 import {TodoService} from '../../todo/todo.service';
+import {Ellipsis} from '../../commons/pipes/ellipsis.pipe';
 
 let fixture,
     compiled,
@@ -16,7 +17,8 @@ describe('AppComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 AppComponent,
-                TodoComponent
+                TodoComponent,
+                Ellipsis
             ],
             imports: [
                 BrowserModule,
@@ -37,11 +39,5 @@ describe('AppComponent', () => {
 
     it('should create the app', async(() => {
         expect(app).toBeTruthy();
-    }));
-
-    it('should render title in a h2 tag', async(() => {
-        fixture.detectChanges();
-
-        expect(compiled.querySelector('h2').textContent).toContain('Todo App');
     }));
 });
