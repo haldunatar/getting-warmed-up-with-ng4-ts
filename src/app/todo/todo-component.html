@@ -23,10 +23,7 @@
                 <span class="list-item__title" [ngClass]="{'todo-item--checked': item.status}">
                     <b>{{item.title | ellipsis: 15: '--'}}</b>
                 </span>
-s
                 <span class="list-item__remove" (click)="removeTodo(item.title)">X</span>
-
-                <span class="list-item__edit" (click)="editTodo(item.title)">E</span>
             </li>
         </ul>
     </div>
@@ -34,7 +31,7 @@ s
     <button type="button" class="todo-component__clear" (click)="clearTodos()">
         Clear Everything!
     </button>
-</section>
+</section> 
 
 <p>This comes from the test http call: </p>
 
@@ -43,5 +40,5 @@ s
 </div>
 
 
-
-
+<p>This will be bound: {{testBinding}}</p>
+ 

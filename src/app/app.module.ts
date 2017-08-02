@@ -5,6 +5,10 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './main/main.component';
 import { TodoComponent } from './todo/todo.component';
+
+import { AppRoutingModule } from './app.router.module';
+import { AuthModule } from './auth/auth.module';
+
 import { TodoService } from './todo/todo.service';
 import { Ellipsis } from './commons/pipes/ellipsis.pipe';
 
@@ -17,7 +21,9 @@ import { Ellipsis } from './commons/pipes/ellipsis.pipe';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule,
+    AuthModule
   ],
   providers: [ TodoService ],
   bootstrap: [ AppComponent ]

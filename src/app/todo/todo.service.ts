@@ -5,10 +5,12 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class TodoService {
+  private someVal: Array<{}>;
     constructor(private http: Http) { }
 
     getTodos(): Array<{}> {
-        return JSON.parse(localStorage.getItem('todoList'));
+      this.someVal = JSON.parse(localStorage.getItem('todoList'));
+        return this.someVal;
     }
 
     addTodos(listItem: Array<{}>) {

@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { TodoService } from './todo.service';
 
 @Component({
@@ -8,6 +8,9 @@ import { TodoService } from './todo.service';
 })
 
 export class TodoComponent implements OnInit {
+
+    @Input() testBinding: number;
+
     list: Array<{}>;
     newTodo: string;
     editingTodo: boolean;
@@ -15,8 +18,13 @@ export class TodoComponent implements OnInit {
     isSameWarning: boolean;
     testList: Object;
     testTxt: string;
+    imgUrl: any;
+    imageName: any;
 
-    constructor(private todoService: TodoService) { }
+    constructor(private todoService: TodoService) {
+      this.imageName = 'tr9Yellow';
+      this.imgUrl = `/assets/images/${this.imageName}.jpg`;
+    }
 
     ngOnInit() {
         this.testTxt = 'initialized!';
@@ -29,7 +37,7 @@ export class TodoComponent implements OnInit {
                 this.testList = testList;
             });
     }
-
+    
     addTodo() {
         const isExist = this.list.filter((item: any) => item.title === this.newTodo);
 
