@@ -2,21 +2,29 @@ import { NgModule }              from '@angular/core';
 import { RouterModule, Routes }  from '@angular/router'; 
  
 import { TodoComponent } from './todo/todo.component';  
-import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { UserAuthenticationComponent } from './auth/auth.component'; 
 import { SignInComponent } from './auth/sign-in/sign-in.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component'; 
 
 const appRoutes: Routes = [
-  { path: 'sign-up', component: SignUpComponent },
-  { path: 'sign-in', component: SignInComponent },
+  { 
+    path: 'auth', 
+    component: UserAuthenticationComponent, 
+    children: [ 
+      {path: '', redirectTo: 'sign-in', pathMatch: 'full'}, 
+      {path: 'sign-in', component: SignInComponent}, 
+      {path: 'sign-up', component: SignUpComponent}, 
+    ] 
+  }, 
   { path: 'todo', component: TodoComponent },
-  { path: '', redirectTo: 'sign-in', pathMatch: 'full' }
+  { path: '', redirectTo: 'auth', pathMatch: 'full' }
 ];
    
 @NgModule({
-  imports: [
+  imports: [ 
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false }
     )
   ],
   exports: [
