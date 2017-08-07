@@ -16,25 +16,22 @@ export class TodoComponent implements OnInit {
     editingTodo: boolean;
     isEmptyWarning: boolean;
     isSameWarning: boolean;
-    testList: Object;
-    testTxt: string; 
+    testList: Object; 
     clearWarning: boolean;
     buttonInitialLabel: string = 'Clear The List';
     buttonWarningLabel: string = 'Yes! I am sure to loose everything!';
     buttonLabel: string = this.buttonInitialLabel;
+    timer: any = null; 
 
     constructor(private todoService: TodoService) { }
 
-    ngOnInit() {
-        this.testTxt = 'initialized!';
+    ngOnInit() { 
 
         this.list = this.todoService.getTodos() || [];
 
         this.todoService
             .getTestData()
-            .subscribe((testList)  => {
-                this.testList = testList;
-            });
+            .subscribe(testList => this.testList = testList);
     }
     
     addTodo() {
@@ -74,15 +71,29 @@ export class TodoComponent implements OnInit {
 
     clearTodos() { 
 
-        if(this.clearWarning) {
-            this.list = [];
-            this.todoService.clearList();
-
-            this.clearWarning = false;
-            this.buttonLabel = this.buttonInitialLabel;
+        if(this.clearWarning) { 
+           this.removeList();
         } else {
-            this.clearWarning = true; 
-            this.buttonLabel = this.buttonWarningLabel;
+            this.displayWarning();
         }
     }
+
+    removeList() {
+        this.list = [];
+        this.todoService.clearList();
+
+        this.clearWarning = false;
+        this.buttonLabel = this.buttonInitialLabel;
+    }
+
+    displayWarning() {
+        this.clearWarning = true; 
+        this.buttonLabel = this.buttonWarningLabel;
+
+        this.timer = setTimeout(() => {
+            this.clearWarning = false;
+            this.buttonLabel = this.buttonInitialLabel;
+        }, 3000);
+    }
+ 
 }
