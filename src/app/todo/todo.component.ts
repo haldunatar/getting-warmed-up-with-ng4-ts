@@ -82,8 +82,7 @@ export class TodoComponent implements OnInit {
         this.list = [];
         this.todoService.clearList();
 
-        this.clearWarning = false;
-        this.buttonLabel = this.buttonInitialLabel;
+        this.revertWarning();
     }
 
     displayWarning() {
@@ -91,9 +90,12 @@ export class TodoComponent implements OnInit {
         this.buttonLabel = this.buttonWarningLabel;
 
         this.timer = setTimeout(() => {
-            this.clearWarning = false;
-            this.buttonLabel = this.buttonInitialLabel;
+            this.revertWarning();
         }, 3000);
     }
- 
+
+    revertWarning() {
+        this.clearWarning = false;
+        this.buttonLabel = this.buttonInitialLabel;
+    }
 }
