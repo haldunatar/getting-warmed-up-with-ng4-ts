@@ -7,7 +7,7 @@ import { TodoService } from './todo.service';
     styleUrls: ['./todo.css']
 })
 
-export class TodoComponent implements OnInit {
+export class TodoComponent implements OnInit { 
 
     @Input() testBinding: number;
 
@@ -17,14 +17,13 @@ export class TodoComponent implements OnInit {
     isEmptyWarning: boolean;
     isSameWarning: boolean;
     testList: Object;
-    testTxt: string;
-    imgUrl: any;
-    imageName: any;
+    testTxt: string; 
+    clearWarning: boolean;
+    buttonInitialLabel: string = 'Clear The List';
+    buttonWarningLabel: string = 'Yes! I am sure to loose everything!';
+    buttonLabel: string = this.buttonInitialLabel;
 
-    constructor(private todoService: TodoService) {
-      this.imageName = 'tr9Yellow';
-      this.imgUrl = `/assets/images/${this.imageName}.jpg`;
-    }
+    constructor(private todoService: TodoService) { }
 
     ngOnInit() {
         this.testTxt = 'initialized!';
@@ -59,7 +58,7 @@ export class TodoComponent implements OnInit {
         }
     }
 
-    checkTodo() {
+    checkTodo() { 
         setTimeout(() => this.todoService.upDateTodos(this.list));
     }
 
@@ -73,8 +72,17 @@ export class TodoComponent implements OnInit {
         });
     }
 
-    clearTodos() {
-        this.list = [];
-        this.todoService.clearList();
+    clearTodos() { 
+
+        if(this.clearWarning) {
+            this.list = [];
+            this.todoService.clearList();
+
+            this.clearWarning = false;
+            this.buttonLabel = this.buttonInitialLabel;
+        } else {
+            this.clearWarning = true; 
+            this.buttonLabel = this.buttonWarningLabel;
+        }
     }
 }

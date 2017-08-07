@@ -28,17 +28,12 @@
         </ul>
     </div>
 
-    <button type="button" class="todo-component__clear" (click)="clearTodos()">
-        Clear Everything!
+    <button type="button" 
+        class="todo-component__clear" 
+        [ngClass]="{'clear-warning-state': clearWarning}"
+        *ngIf="list.length > 0"
+        (click)="clearTodos()">
+        {{buttonLabel}}
     </button>
 </section> 
-
-<p>This comes from the test http call: </p>
-
-<div *ngFor="let mData of testList">
-    <span>{{mData?.mockProp}}</span>
-</div>
-
-
-<p>This will be bound: {{testBinding}}</p>
  
