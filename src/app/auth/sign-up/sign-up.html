@@ -1,19 +1,35 @@
-<form novalidate> 
+<form novalidate [formGroup]="user"> 
  
     <input
       type="email"
       name="email"
+      formControlName="email"
       placeholder="Your email address">
+
+      <div *ngIf="user.get('email').hasError('required') && user.get('email').touched">
+        This dude is necessary man!
+      </div>
  
     <input
       type="email"
+      name="confirm-email"
+      formControlName="confirm"
+      placeholder="confirm your e-mail">
+
+      <div *ngIf="user.get('confirm').hasError('required') && user.get('confirm').touched">
+        Don't you forget to confirm your email dude!
+      </div>
+ 
+    <input
+      type="password"
       name="password"
-      placeholder="Choose a password">
- 
-    <input
-      type="email"
-      name="confirm-password"
-      placeholder="Confirm your password">
+      formControlName="password"
+      placeholder="Your password">
+
+      <div *ngIf="user.get('password').hasError('required') && user.get('password').touched">
+        You need a lock!
+      </div>
 
   <button type="submit">Sign up</button>
 </form>
+ 
