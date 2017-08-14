@@ -9,6 +9,10 @@
       <div *ngIf="user.get('email').hasError('required') && user.get('email').touched">
         This dude is necessary man!
       </div>
+
+        <div *ngIf="user.get('email').hasError('pattern') && user.get('email').touched">
+        Wrong email format!
+      </div>
  
     <input
       type="email"
@@ -28,6 +32,10 @@
 
       <div *ngIf="user.get('password').hasError('required') && user.get('password').touched">
         You need a lock!
+      </div>
+
+      <div *ngIf="user.get('password').hasError('minLength') && user.get('password').touched">
+        You can do better..!
       </div>
 
   <button type="submit">Sign up</button>

@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// import { emailMatcher } from '../../commons/validators/email-matcher';
 
 @Component({
 	selector: 'sign-up',
@@ -9,15 +10,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class SignUpComponent implements OnInit {
 	user: FormGroup;
 
-  	constructor() {}
+  	constructor(public fb: FormBuilder) {}
 
   	ngOnInit() {
-
-	this.user = new FormGroup({
-		email: new FormControl('', Validators.required),
-		confirm: new FormControl('', Validators.required),
-		password: new FormControl('', [Validators.required, Validators.minLength(3)])
-	});
-
-  }
+		this.user = this.fb.group({
+			name: ['', [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
+			email: ['', Validators.required],
+			confirm: ['', Validators.required],
+			password: ['', Validators.required]
+		});
+	}
 }
+

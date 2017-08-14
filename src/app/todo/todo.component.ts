@@ -26,7 +26,6 @@ export class TodoComponent implements OnInit {
     constructor(private todoService: TodoService) { }
 
     ngOnInit() { 
-
         this.list = this.todoService.getTodos() || [];
 
         this.todoService
@@ -35,7 +34,7 @@ export class TodoComponent implements OnInit {
     }
     
     addTodo() {
-        const isExist = this.list.filter((item: any) => item.title === this.newTodo);
+        const isExist = this.list.filter((item: {title?:string}) => item.title === this.newTodo);
 
         if(isExist.length > 0) {
             this.isSameWarning = true;
