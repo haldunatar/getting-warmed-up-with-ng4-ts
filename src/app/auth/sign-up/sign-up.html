@@ -10,7 +10,7 @@
         This dude is necessary man!
       </div>
 
-        <div *ngIf="user.get('email').hasError('pattern') && user.get('email').touched">
+        <div *ngIf="user.get('email').hasError('email') && user.get('email').touched && !user.get('email').hasError('required')">
         Wrong email format!
       </div>
  
@@ -22,8 +22,11 @@
 
       <div *ngIf="user.get('confirm').hasError('required') && user.get('confirm').touched">
         Don't you forget to confirm your email dude!
-      </div>
- 
+      </div> 
+
+       <div *ngIf="user.get('confirm').hasError('email') && user.get('confirm').touched && !user.get('confirm').hasError('required')">
+        Not a correct form!
+      </div> 
     <input
       type="password"
       name="password"
