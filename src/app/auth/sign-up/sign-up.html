@@ -21,12 +21,13 @@
       placeholder="confirm your e-mail">
 
       <div *ngIf="user.get('confirm').hasError('required') && user.get('confirm').touched">
-        Don't you forget to confirm your email dude!
+        Don't you forget to confirm your email dude!s
       </div> 
-
-       <div *ngIf="user.get('confirm').hasError('email') && user.get('confirm').touched && !user.get('confirm').hasError('required')">
-        Not a correct form!
+ 
+       <div *ngIf="user.get('confirm').touched && user.hasError('nomatch')">
+        Confirmation email doesn't look like your 
       </div> 
+ 
     <input
       type="password"
       name="password"
@@ -34,7 +35,7 @@
       placeholder="Your password">
 
       <div *ngIf="user.get('password').hasError('required') && user.get('password').touched">
-        You need a lock!
+        You need a password!
       </div>
 
       <div *ngIf="user.get('password').hasError('minLength') && user.get('password').touched">
