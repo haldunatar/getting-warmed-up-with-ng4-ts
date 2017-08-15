@@ -18,8 +18,5 @@ export class SignUpComponent implements OnInit {
 			confirm: ['', Validators.required],
 			password: ['', [Validators.required, Validators.minLength(3)]],
 		}, { validator: emailMatcher });
-
-		console.log(this.user)
 	} 
 }
-

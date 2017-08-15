@@ -38,10 +38,10 @@
         You need a password!
       </div>
 
-      <div *ngIf="user.get('password').hasError('minLength') && user.get('password').touched">
-        You can do better..!
+      <div *ngIf="user.get('password').hasError('minlength') && user.get('password').touched && !user.get('password').hasError('required')">
+        At least 3 chars!
       </div>
 
-  <button type="submit">Sign up</button>
+  <button type="submit" [disabled]="user.invalid">Sign up</button>
 </form>
  
