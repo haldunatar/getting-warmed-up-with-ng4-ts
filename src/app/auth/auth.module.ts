@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';  
+import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AuthRoutingModule } from './auth.router.module';
@@ -18,7 +19,8 @@ import { UserAuthenticationComponent } from './auth.component';
 		BrowserModule,
 		FormsModule,
 		ReactiveFormsModule,
-		AuthRoutingModule
+		NgxErrorsModule,
+		AuthRoutingModule,
 	],
 	exports: [UserAuthenticationComponent]
 }) 

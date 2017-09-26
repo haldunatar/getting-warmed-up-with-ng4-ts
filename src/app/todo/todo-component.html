@@ -28,11 +28,15 @@
         </ul>
     </div>
 
-    <button type="button" 
-        class="todo-component__clear" 
-        [ngClass]="{'clear-warning-state': clearWarning}"
-        *ngIf="list.length > 0"
-        (click)="clearTodos()">
-        {{buttonLabel}}
-    </button>
+    <div class="button-container">
+        <button type="button" 
+            class="todo-component__clear" 
+            [ngClass]="{ 'clear-warning-state': clearWarning}"
+            *ngIf="list.length > 0"
+            (click)="clearTodos()">
+            <span class="todo-component__clear__label">{{buttonLabel}}</span>
+            <div class="clearWarning-progress" [ngClass]="{ 'clearWarning-progress--active': clearWarning}"></div>
+        </button>
+        
+    </div>
 </section>  

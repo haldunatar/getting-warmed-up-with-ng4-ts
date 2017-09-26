@@ -24,7 +24,6 @@ import { Ellipsis } from './commons/pipes/ellipsis.pipe';
     HttpModule,
     AppRoutingModule,
     AuthModule
-
   ],
   providers: [ TodoService ],
   bootstrap: [ AppComponent ]

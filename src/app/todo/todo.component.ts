@@ -19,7 +19,7 @@ export class TodoComponent implements OnInit {
     testList: Object; 
     clearWarning: boolean;
     buttonInitialLabel: string = 'Clear The List';
-    buttonWarningLabel: string = 'Yes! I am sure to loose everything!';
+    buttonWarningLabel: string = 'Yes! I am sure to lose everything!';
     buttonLabel: string = this.buttonInitialLabel;
     timer: any = null; 
 

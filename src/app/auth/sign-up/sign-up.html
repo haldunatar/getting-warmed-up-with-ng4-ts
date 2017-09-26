@@ -6,13 +6,16 @@
       formControlName="email"
       placeholder="Your email address">
 
-      <div *ngIf="user.get('email').hasError('required') && user.get('email').touched">
-        This dude is necessary man!
-      </div>
+    
+    <div *ngIf="user.get('email').hasError('required') && user.get('email').touched">
+        Email please!
+    </div>
 
-        <div *ngIf="user.get('email').hasError('email') && user.get('email').touched && !user.get('email').hasError('required')">
-        Wrong email format!
-      </div>
+    <div *ngIf="user.get('email').hasError('email') && user.get('email').touched && !user.get('email').hasError('required')">
+       
+      Wrong email format!
+    </div>
+ 
  
     <input
       type="email"
