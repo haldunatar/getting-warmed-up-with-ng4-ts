@@ -7,7 +7,7 @@ import { TodoService } from './todo.service';
     styleUrls: ['./todo.css']
 })
 
-export class TodoComponent implements OnInit { 
+export class TodoComponent implements OnInit {
 
     @Input() testBinding: number;
 
@@ -16,23 +16,23 @@ export class TodoComponent implements OnInit {
     editingTodo: boolean;
     isEmptyWarning: boolean;
     isSameWarning: boolean;
-    testList: Object; 
+    testList: Object;
     clearWarning: boolean;
-    buttonInitialLabel: string = 'Clear The List';
-    buttonWarningLabel: string = 'Yes! I am sure to lose everything!';
-    buttonLabel: string = this.buttonInitialLabel;
-    timer: any = null; 
+    buttonInitialLabel: String = 'Clear The List';
+    buttonWarningLabel: String = 'Yes! I am sure to lose everything!';
+    buttonLabel: String = this.buttonInitialLabel;
+    timer: any = null;
 
     constructor(private todoService: TodoService) { }
 
-    ngOnInit() { 
+    ngOnInit() {
         this.list = this.todoService.getTodos() || [];
 
         this.todoService
             .getTestData()
-            .subscribe(testList => this.testList = testList);
+            .subscribe(data => this.testList = data);
     }
-    
+
     addTodo() {
         const isExist = this.list.filter((item: {title?:string}) => item.title === this.newTodo);
 
@@ -40,7 +40,7 @@ export class TodoComponent implements OnInit {
             this.isSameWarning = true;
 
             setTimeout(() => this.isSameWarning = false, 1000);
-        } else if(this.newTodo && this.newTodo !== '') {
+        } else if (this.newTodo && this.newTodo !== '') {
             this.list.push({title: this.newTodo, status: false});
 
             this.todoService.addTodos(this.list);
@@ -54,13 +54,13 @@ export class TodoComponent implements OnInit {
         }
     }
 
-    checkTodo() { 
+    checkTodo() {
         setTimeout(() => this.todoService.upDateTodos(this.list));
     }
 
     removeTodo(todoToRemove: String) {
-        this.list.forEach((todo: any, i:number) => {
-            if(todo.title === todoToRemove) {
+        this.list.forEach((todo: any, i: number) => {
+            if (todo.title === todoToRemove) {
                 this.list.splice(i, 1);
 
                 this.todoService.upDateTodos(this.list); // updateList
@@ -68,9 +68,8 @@ export class TodoComponent implements OnInit {
         });
     }
 
-    clearTodos() { 
-
-        if(this.clearWarning) { 
+    clearTodos() {
+        if (this.clearWarning) {
            this.removeList();
         } else {
             this.displayWarning();
@@ -85,7 +84,7 @@ export class TodoComponent implements OnInit {
     }
 
     displayWarning() {
-        this.clearWarning = true; 
+        this.clearWarning = true;
         this.buttonLabel = this.buttonWarningLabel;
 
         this.timer = setTimeout(() => {
