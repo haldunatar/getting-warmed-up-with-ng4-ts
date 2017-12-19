@@ -1,99 +1,66 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { TodoService } from './todo.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+
+import * as todoActions from './store/actions';
+
+import { Todo } from './model/todo';
 
 @Component({
-    selector: 'todo-component',
-    templateUrl: './todo-component.html',
-    styleUrls: ['./todo.css']
+	selector: 'todo-component',
+	templateUrl: './todo-component.html',
+	styleUrls: ['./todo.scss']
 })
 
 export class TodoComponent implements OnInit {
+ 
+	todos$	: Observable<any>;
+	newTodo	: string;
+	isEmptyWarning: boolean;
+	isEmptyEditingWarning: boolean;
+	editTodoTitle: string;
+ 
+	constructor(private store: Store<any>) { }
 
-    @Input() testBinding: number;
+	ngOnInit() { 
+		this.todos$ = this.store.select('todoStore'); 
+	}
+ 
+	addTodo() {
+		if (this.newTodo === undefined || this.newTodo === '') {
 
-    list: Array<{}>;
-    newTodo: string;
-    editingTodo: boolean;
-    isEmptyWarning: boolean;
-    isSameWarning: boolean;
-    testList: Object;
-    clearWarning: boolean;
-    buttonInitialLabel: String = 'Clear The List';
-    buttonWarningLabel: String = 'Yes! I am sure to lose everything!';
-    buttonLabel: String = this.buttonInitialLabel;
-    timer: any = null;
+			this.isEmptyWarning = true;
+			setTimeout(() => this.isEmptyWarning = false, 2000);
+		} else {
+			this.store.dispatch(new todoActions.TodoAdd({ title: this.newTodo, status: false }))
+			this.newTodo = '';
+		}
+	}
+ 
+	editTodo(id, title) { 
+		if (this.editTodoTitle === undefined || this.editTodoTitle === '') {
+			this.isEmptyEditingWarning = true;
+			setTimeout(() => this.isEmptyEditingWarning = false, 2000);
+		} else {
+			this.store.dispatch(new todoActions.TodoUpdate({id, title: this.editTodoTitle}));
+			this.editTodoTitle = '';
+		}
+	}
 
-    constructor(private todoService: TodoService) { }
+	checkTodo(item) {
+		const status = !item.status;  
+		this.store.dispatch(new todoActions.TodoToggle({id: item._id, status}));
+	}
 
-    ngOnInit() {
-        this.list = this.todoService.getTodos() || [];
+	removeTodo(todoId) { 
+		this.store.dispatch(new todoActions.TodoRemove(todoId));
+	}
 
-        this.todoService
-            .getTestData()
-            .subscribe(data => this.testList = data);
-    }
+	clearTodos() {
+		this.store.dispatch(new todoActions.TodoRemoveAll);
+	}
 
-    addTodo() {
-        const isExist = this.list.filter((item: {title?:string}) => item.title === this.newTodo);
-
-        if(isExist.length > 0) {
-            this.isSameWarning = true;
-
-            setTimeout(() => this.isSameWarning = false, 1000);
-        } else if (this.newTodo && this.newTodo !== '') {
-            this.list.push({title: this.newTodo, status: false});
-
-            this.todoService.addTodos(this.list);
-
-            this.newTodo = ''; // Clean Input field
-
-        } else {
-            this.isEmptyWarning = true;
-
-            setTimeout(() => this.isEmptyWarning = false, 1000);
-        }
-    }
-
-    checkTodo() {
-        setTimeout(() => this.todoService.upDateTodos(this.list));
-    }
-
-    removeTodo(todoToRemove: String) {
-        this.list.forEach((todo: any, i: number) => {
-            if (todo.title === todoToRemove) {
-                this.list.splice(i, 1);
-
-                this.todoService.upDateTodos(this.list); // updateList
-            }
-        });
-    }
-
-    clearTodos() {
-        if (this.clearWarning) {
-           this.removeList();
-        } else {
-            this.displayWarning();
-        }
-    }
-
-    removeList() {
-        this.list = [];
-        this.todoService.clearList();
-
-        this.revertWarning();
-    }
-
-    displayWarning() {
-        this.clearWarning = true;
-        this.buttonLabel = this.buttonWarningLabel;
-
-        this.timer = setTimeout(() => {
-            this.revertWarning();
-        }, 3000);
-    }
-
-    revertWarning() {
-        this.clearWarning = false;
-        this.buttonLabel = this.buttonInitialLabel;
-    }
+	watchTodos(index, item) { 
+		return item.id;
+	}
 }

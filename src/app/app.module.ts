@@ -1,31 +1,41 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
-import { AppComponent } from './main/main.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { AppComponent } from './app.component';
 import { TodoComponent } from './todo/todo.component';
 
-import { AppRoutingModule } from './app.router.module';
-import { AuthModule } from './auth/auth.module';
+import * as todoStore from './todo/store/index'; 
+import { TodoResolver } from './todo/resolve/todo.resolve';
 
-import { TodoService } from './todo/todo.service';
-import { Ellipsis } from './commons/pipes/ellipsis.pipe';
+const appRoutes: Routes = [
+	{ path: 'todo', component: TodoComponent, resolve: { TodoResolver } },
+	{ path: '', redirectTo: 'todo', pathMatch: 'full' }
+];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TodoComponent,
-    Ellipsis
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    AppRoutingModule,
-    AuthModule
-  ],
-  providers: [ TodoService ],
-  bootstrap: [ AppComponent ]
+	declarations: [
+		AppComponent,
+		TodoComponent
+	],
+	imports: [
+		BrowserModule,
+		FormsModule,
+		HttpClientModule,
+		RouterModule.forRoot(
+			appRoutes,
+			{ enableTracing: false }
+		),
+		StoreModule.forRoot({ todoStore: todoStore.todoReducer }),
+		EffectsModule.forRoot([todoStore.TodoEffects])
+	],
+	providers: [TodoResolver],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }
+ 

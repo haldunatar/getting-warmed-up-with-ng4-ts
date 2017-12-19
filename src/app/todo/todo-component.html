@@ -1,8 +1,9 @@
-<section class="todo-component">
+<section class="todo-component"> 
     <h2 class="todo-component__title">Todo App</h2>
-
+ 
     <input type="text"
         class="todo-input"
+        name="newTodo"
         [(ngModel)]="newTodo"
         (keyup.enter)="addTodo()"
         placeholder="Note something to do...">
@@ -13,30 +14,67 @@
 
     <div class="todo-warning" *ngIf="isSameWarning">
         <b>This one is already exist!</b>
-    </div>
-
-    <div class="todo-component__list">
+	</div>
+ 
+    <div class="todo-component__list" *ngIf="(todos$ | async)">
         <ul>
-            <li *ngFor="let item of list.slice().reverse()" class="list-item">
-                <input type="checkbox" class="list-item__check" [(ngModel)]="item.status" (click)="checkTodo(item)">
+            <li *ngFor="let item of (todos$ | async).list; trackBy: watchTodos" class="list-item">
+                <input type="checkbox" 
+                    class="list-item__check" 
+                    [(ngModel)]="item.status" 
+                    (click)="checkTodo(item)"
+                    *ngIf="!item.edit">
 
-                <span class="list-item__title" [ngClass]="{'todo-item--checked': item.status}">
-                    <b>{{item.title | ellipsis: 15: '--'}}</b>
-                </span>
-                <span class="list-item__remove" (click)="removeTodo(item.title)">X</span>
+                <span class="list-item__title" 
+                     [ngClass]="{'todo-item--checked': item.status}"
+                     *ngIf="!item.edit"
+                     (dblclick)="item.edit = !item.edit">
+                    <b>{{item.title}}</b>
+                </span> 
+ 
+                <input type="text" 
+                    class="list-item__edit-input"
+                    placeholder="editing : {{item.title}}"  
+                    *ngIf="item.edit"
+                    [(ngModel)]="editTodoTitle"
+                    (keyup.enter)="item.edit = !item.edit; editTodo(item._id);"
+                    todoFocus>
+
+                <span class="list-item__remove" 
+                    (click)="removeTodo(item._id)"
+                    *ngIf="!item.edit">
+                    X
+                </span> 
+
+                <span class="list-item__remove" 
+                    (click)="item.edit = !item.edit"
+                    *ngIf="item.edit">
+                    &#8605;
+                </span> 
+
+                <div class="todo-warning" *ngIf="isEmptyEditingWarning">
+                    <b>new title..? or just click cancel button!</b>
+                </div>
             </li>
         </ul>
     </div>
 
     <div class="button-container">
         <button type="button" 
-            class="todo-component__clear" 
-            [ngClass]="{ 'clear-warning-state': clearWarning}"
-            *ngIf="list.length > 0"
+            class="todo-component__clear"  
+            
             (click)="clearTodos()">
-            <span class="todo-component__clear__label">{{buttonLabel}}</span>
-            <div class="clearWarning-progress" [ngClass]="{ 'clearWarning-progress--active': clearWarning}"></div>
+            Clear Todos
         </button>
         
     </div>
-</section>  
+</section>   
+
+<ng-container *ngIf="(todos$ | async) && (todos$ | async).loading">
+	<div class="sk-folding-cube">
+			<div class="sk-cube1 sk-cube"></div>
+			<div class="sk-cube2 sk-cube"></div>
+			<div class="sk-cube4 sk-cube"></div>
+			<div class="sk-cube3 sk-cube"></div>
+	</div>
+</ng-container>
