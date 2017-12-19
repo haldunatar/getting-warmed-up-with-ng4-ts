@@ -2,7 +2,7 @@
 
 `npm i`
 
-### Start Backend and Database
+### Start Backend and MongodDB
 
 If not installed: Install [mongodb](https://docs.mongodb.com/manual/installation/)
 
