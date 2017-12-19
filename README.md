@@ -1,12 +1,14 @@
-# TodoApp
+### TodoApp
 
 `npm i`
 
-## Start Backend and Database
+### Start Backend and Database
+
+If not installed: Install [mongodb](https://docs.mongodb.com/manual/installation/)
 
 `sudo mongod`
 `node server`
 
-## Start client
+### Start client
 
 `npm start`
