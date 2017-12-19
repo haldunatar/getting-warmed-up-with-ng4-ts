@@ -14,7 +14,7 @@ import { Todo } from './model/todo';
 
 export class TodoComponent implements OnInit {
  
-	todos$	: Observable<any>;
+	todos$	: Observable<Todo[]>;
 	newTodo	: string;
 	isEmptyWarning: boolean;
 	isEmptyEditingWarning: boolean;
