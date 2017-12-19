@@ -14,7 +14,7 @@ import * as todoStore from './todo/store/index';
 import { TodoResolver } from './todo/resolve/todo.resolve';
 
 const appRoutes: Routes = [
-	{ path: 'todo', component: TodoComponent, resolve: { TodoResolver } },
+	{ path: 'todo', component: TodoComponent, resolve: { interceptor: TodoResolver } },
 	{ path: '', redirectTo: 'todo', pathMatch: 'full' }
 ];
 

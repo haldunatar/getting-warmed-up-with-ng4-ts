@@ -11,10 +11,6 @@
     <div class="todo-warning" *ngIf="isEmptyWarning">
         <b>You can't create a TODO without a title right?;)</b>
     </div>
-
-    <div class="todo-warning" *ngIf="isSameWarning">
-        <b>This one is already exist!</b>
-	</div>
  
     <div class="todo-component__list" *ngIf="(todos$ | async)">
         <ul>
