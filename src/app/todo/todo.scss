@@ -50,11 +50,29 @@
     top: 0;
     background: #fff;
 }
-
-.todo-item--checked {
-    text-decoration: line-through;
-    color: grey;
-}
+ 
+@keyframes strike {
+	0%   { width : 0; }
+	100% { width: 100%; }
+  }
+  .todo-item--checked {
+	position: relative;
+	color: grey;
+  }
+  .todo-item--checked:after {
+	content: ' ';
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: grey;
+	animation-name: strike;
+	animation-duration: .5s;
+	animation-timing-function: linear;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards; 
+  }
 
 .list-item__title {
     display: inline-block;
