@@ -19,14 +19,12 @@ export class TodoResolver implements Resolve<any> {
 		 
 		this.store.dispatch(new todoActions.TodoLoad);
 
-		// this.store.select('todoStore').subscribe(data => { 
-
-		// 	console.log(data);
-  
-		// 	// if (!data.err && data.list && data.list.length > 0) {
-		// 	// 	this.todoCache = data.list;
-		// 	// }
-		// });
+		this.store.select('todoStore').subscribe(data => {  
+			
+			if (!data.err && data.list && data.list.length > 0) {
+				this.todoCache = data.list;
+			}
+		});
 	}
 
 	clearCache() {
