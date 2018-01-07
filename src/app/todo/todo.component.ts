@@ -18,15 +18,15 @@ export class TodoComponent implements OnInit {
 	newTodo	: string;
 	isEmptyWarning: boolean;
 	isEmptyEditingWarning: boolean;
-	editTodoTitle: string;
+	editTodoTitle: string; 
  
 	constructor(private store: Store<any>) { }
 
-	ngOnInit() { 
+	ngOnInit() {  
 		this.todos$ = this.store.select('todoStore'); 
 	}
  
-	addTodo() {
+	addTodo() { 
 		if (this.newTodo === undefined || this.newTodo === '') {
 
 			this.isEmptyWarning = true;
@@ -37,7 +37,7 @@ export class TodoComponent implements OnInit {
 		}
 	}
  
-	editTodo(id, title) { 
+	editTodo(id) { 
 		if (this.editTodoTitle === undefined || this.editTodoTitle === '') {
 			this.isEmptyEditingWarning = true;
 			setTimeout(() => this.isEmptyEditingWarning = false, 2000);
@@ -48,7 +48,7 @@ export class TodoComponent implements OnInit {
 	}
 
 	checkTodo(item) {
-		const status = !item.status;  
+		const status = !item.status; 
 		this.store.dispatch(new todoActions.TodoToggle({id: item._id, status}));
 	}
 
