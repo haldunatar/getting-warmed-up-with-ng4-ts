@@ -31,8 +31,11 @@ const appRoutes: Routes = [
 			appRoutes,
 			{ enableTracing: false }
 		),
-		StoreModule.forRoot({ todoStore: todoStore.todoReducer }),
+		StoreModule.forRoot({ 
+			todos: todoStore.todoReducer
+		 }),
 		EffectsModule.forRoot([todoStore.TodoEffects])
+		
 	],
 	providers: [TodoResolver],
 	bootstrap: [AppComponent]

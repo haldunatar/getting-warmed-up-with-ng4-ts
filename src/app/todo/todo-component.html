@@ -14,7 +14,7 @@
  
     <div class="todo-component__list" *ngIf="(todos$ | async)">
         <ul>
-            <li *ngFor="let item of (todos$ | async).list; trackBy: watchTodos" class="list-item">
+            <li *ngFor="let item of (todos$ | async).todos; trackBy: watchTodos" class="list-item">
                 <input type="checkbox" 
                     class="list-item__check" 
                     [(ngModel)]="item.status" 
@@ -55,7 +55,7 @@
         </ul>
     </div>
  
-    <div class="button-container" *ngIf="(todos$ | async) && (todos$ | async).list.length > 0">
+    <div class="button-container" *ngIf="(todos$ | async) && (todos$ | async).todos.length > 0">
         <button type="button" 
             class="todo-component__clear"  
             

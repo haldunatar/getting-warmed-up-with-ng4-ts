@@ -3,33 +3,35 @@ import { Todo } from '../../model/todo';
 import { TodoAddSucceeded } from '../index';
 
 export interface TodoState {
-	list: Array<Todo>;
+	todos	: Todo[];
+	loading?: boolean;
+	error?	: string;
 }
 
 export const initialState: TodoState = {
-	list: []
+	todos: []
 };
  
 // Reducer func: Load Todos
 function todoLoad(state, action) { 
 	return {
 		loading	: true,
-		list	: state.list
+		todos	: state.todos
 	}
 }
 
 function todoLoadSucceeded(state, action) { 
 	return {
 		loading	: false,
-		list	: [...state.list, ...action.payload]
+		todos	: [...state.todos, ...action.payload]
 	}
 }
 
 function todoLoadFailed(state, action) {
 	return {
 		loading	: false,
-		error 	: 'Todo list cannot be retrieved!',		
-		list	: [...state.list]
+		error 	: 'Todo todos cannot be retrieved!',		
+		todos	: [...state.todos]
 	}
 }
 
@@ -37,22 +39,22 @@ function todoLoadFailed(state, action) {
 function todoAdd(state, action) {
 	return {
 		loading: true,
-		list: [...state.list]
+		todos: [...state.todos]
 	}
 }
 
 function todoAddSucceeded(state, action) { 
 	return {
 		loading: false,
-		list: [...state.list, ...action.payload]
+		todos: [...state.todos, ...action.payload]
 	}
 }
 
 function todoAddFailed(state, action) {
 	return {
 		loading	: false,
-		error 	: 'Todo list cannot be retrieved!',		
-		list	: [...state.list]
+		error 	: 'Todo todos cannot be retrieved!',		
+		todos	: [...state.todos]
 	}
 }
 
@@ -60,12 +62,12 @@ function todoAddFailed(state, action) {
 function todoUpdate(state, action) {
 	return {
 		loading	: true,
-		list	: [...state.list]
+		todos	: [...state.todos]
 	}
 }
 
 function todoUpdateSucceeded(state, action) { 
-	const list = state.list.map(todo => {  
+	const todos = state.todos.map(todo => {  
 		if(todo._id !== action.payload.id) { return todo;}
   
 		return {
@@ -76,7 +78,7 @@ function todoUpdateSucceeded(state, action) {
 	  
 	return {
 		loading: false,
-		list
+		todos
 	}
 }
 
@@ -84,7 +86,7 @@ function todoUpdateFailed(state, action) {
 	return {
 		loading	: false,
 		error 	: 'Todo cannot be updated!',	
-		list	: [...state.list]
+		todos	: [...state.todos]
 	}
 }
 
@@ -92,12 +94,12 @@ function todoUpdateFailed(state, action) {
 function todoToggle(state, action) {
 	return {
 		loading	: true,
-		list	: [...state.list]
+		todos	: [...state.todos]
 	}
 }
 
 function todoToggleSucceeded(state, action) {  
-	const list = state.list.map(todo => {
+	const todos = state.todos.map(todo => {
 		if (todo._id !== action.payload.id) { return todo; }
 	
 		return { 
@@ -108,14 +110,14 @@ function todoToggleSucceeded(state, action) {
  
 	return {
 		loading: false,
-		list
+		todos
 	}
 }
 
 function todoToggleFailed(state, action) {
 	return {
 		loading	: false,
-		data	: [...state.list]
+		todos	: [...state.todos]
 	}
 }
 
@@ -123,16 +125,16 @@ function todoToggleFailed(state, action) {
 function todoRemove(state, action) {
 	return {
 		loading	: true,
-		list	: [...state.list]
+		todos	: [...state.todos]
 	}
 }
 
 function todoRemoveSucceeded(state, action) {
-	const list = state.list.filter(todo => todo._id !== action.payload)
+	const todos = state.todos.filter(todo => todo._id !== action.payload)
 
 	return {
 		loading	: false,
-		list
+		todos
 	}
 }
 
@@ -140,7 +142,7 @@ function todoRemoveFailed(state, action) {
 	return {
 		loading	: false,
 		error	: 'Todo cannot be removed!',
-		data	: [...state.list]
+		todos	: [...state.todos]
 	}
 }
 
@@ -148,27 +150,27 @@ function todoRemoveFailed(state, action) {
 function todoRemoveAll(state, action) {
 	return {
 		loading	: true,
-		list	: [...state.list]
+		todos	: [...state.todos]
 	}
 }
 
 function todoRemoveAllSucceeded(state, action) { 
-	const list = state.list.filter(() => false);
+	const todos = state.todos.filter(() => false);
 
 	return {
 		loading: false,
-		list
+		todos
 	}
 }
 
 function todoRemoveAllFailed(state, action) {
 	return {
 		loading	: false,
-		data	: [...state]
+		todos	: [...state]
 	}
 }
 
-export function todoReducer(state = initialState, action: todoActions.TodoActions) {
+export function todoReducer(state = initialState, action: todoActions.TodoActions): TodoState {
 
 	switch (action.type) {
 		case todoActions.TODO_LOAD					: return todoLoad(state, action);

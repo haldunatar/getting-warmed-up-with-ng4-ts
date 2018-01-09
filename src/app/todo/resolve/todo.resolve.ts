@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { Todo } from '../model/todo';
 import * as todoActions from '../store/actions';
+import { TodoState } from '../store/reducers'; 
 
 @Injectable()
 export class TodoResolver implements Resolve<any> {
@@ -19,10 +20,10 @@ export class TodoResolver implements Resolve<any> {
 		 
 		this.store.dispatch(new todoActions.TodoLoad);
 
-		this.store.select('todoStore').subscribe(data => {  
-			
-			if (!data.err && data.list && data.list.length > 0) {
-				this.todoCache = data.list;
+		this.store.select('todoStore').subscribe((data: TodoState) => {
+			 
+			if (data && !data.error && data.todos && data.todos.length > 0) {
+				this.todoCache = data.todos;
 			}
 		});
 	}

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as todoActions from './store/actions';
+import * as fromReducer from './store/reducers/todo.reducer';
 
 import { Todo } from './model/todo';
 
@@ -20,10 +21,10 @@ export class TodoComponent implements OnInit {
 	isEmptyEditingWarning: boolean;
 	editTodoTitle: string; 
  
-	constructor(private store: Store<any>) { }
+	constructor(private store: Store<fromReducer.TodoState>) { }
 
 	ngOnInit() {  
-		this.todos$ = this.store.select('todoStore'); 
+		this.todos$ = this.store.select('todos');
 	}
  
 	addTodo() { 
