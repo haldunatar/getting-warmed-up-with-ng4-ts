@@ -179,7 +179,7 @@ export function todoReducer(state = initialState, action: todoActions.TodoAction
 
 		case todoActions.TODO_ADD					: return  todoAdd(state, action);
 		case todoActions.TODO_ADD_SUCCEEDED			: return  todoAddSucceeded(state, action);
-		case todoActions.TODO_ADD					: return  todoAddFailed(state, action);
+		case todoActions.TODO_ADD_FAILED			: return  todoAddFailed(state, action);
 
 		case todoActions.TODO_UPDATE				: return  todoUpdate(state, action);
 		case todoActions.TODO_UPDATE_SUCCEEDED		: return  todoUpdateSucceeded(state, action);
