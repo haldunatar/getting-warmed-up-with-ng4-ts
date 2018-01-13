@@ -28,7 +28,7 @@ describe('Todo Component: ', () => {
 			imports: [FormsModule, 
 				HttpClientModule,
 				StoreModule.forRoot(
-					{ todoStore: todoStore.todoReducer }
+					{ todos: todoStore.todoReducer }
 				), 
 				EffectsModule.forRoot([todoStore.TodoEffects])
 			],
@@ -64,7 +64,7 @@ describe('Todo Component: ', () => {
 				expect(todos).toEqual(
 					{ 
 						loading: false, 
-						list: [
+						todos: [
 							{ id: '_334', title: 'Shopping', status: false }
 						] 
 					}
