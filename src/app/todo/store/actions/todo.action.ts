@@ -64,20 +64,20 @@ export class TodoAddSucceeded implements Action {
 export class TodoAddFailed implements Action {
 	readonly type = TODO_ADD_FAILED;
 
-	constructor(public payload: {id: Todo['id']}) {}
+	constructor(public payload: any) {}
 }
 
 // Action Creators: Update Todo
 export class TodoUpdate implements Action {
 	readonly type = TODO_UPDATE;
 
-	constructor(public payload: {id: Todo['id'], title: Todo['title']}) {}
+	constructor(public payload: {_id: Todo['_id'], title: Todo['title']}) {}
 }
 
 export class TodoUpdateSucceeded implements Action {
 	readonly type = TODO_UPDATE_SUCCEEDED;
 
-	constructor(public payload: {id: Todo['id'], title: Todo['title']}) {}
+	constructor(public payload: {_id: Todo['_id'], title: Todo['title']}) {}
 }
 
 export class TodoUpdateFailed implements Action {
@@ -90,13 +90,13 @@ export class TodoUpdateFailed implements Action {
 export class TodoToggle implements Action {
 	readonly type = TODO_TOGGLE;
 
-	constructor(public payload: {id: Todo['id']; status: Todo['status']}) {}
+	constructor(public payload: {_id: Todo['_id']; status: Todo['status']}) {}
 }
 
 export class TodoToggleSucceeded implements Action {
 	readonly type = TODO_TOGGLE_SUCCEEDED;
 
-	constructor(public payload: {id: Todo['id']; status: Todo['status']}) {}
+	constructor(public payload: {_id: Todo['_id']; status: Todo['status']}) {}
 }
 
 export class TodoToggleFailed implements Action {
@@ -109,13 +109,13 @@ export class TodoToggleFailed implements Action {
 export class TodoRemove implements Action {
 	readonly type = TODO_REMOVE;
 
-	constructor(public payload: Todo['id']) {}
+	constructor(public payload: Todo['_id']) {}
 }
 
 export class TodoRemoveSucceeded implements Action {
 	readonly type = TODO_REMOVE_SUCCEEDED;
 
-	constructor(public payload: Todo['id']) {}
+	constructor(public payload: Todo['_id']) {}
 }
 
 export class TodoRemoveFailed implements Action {

@@ -32,7 +32,7 @@ export class TodoEffects {
 		.ofType(todoActions.TODO_ADD)
 		.switchMap((action : todoActions.TodoAdd) => { 
 			return this.http
-			.post('/rest/todo-list', action.payload) 
+			.post('/rest/todo-list', action.payload)
 			.map((res: Todo) => new todoActions.TodoAddSucceeded(res))
 			.catch(err => Observable.of(new todoActions.TodoAddFailed(err)));
 		});
@@ -41,8 +41,8 @@ export class TodoEffects {
 		.ofType(todoActions.TODO_UPDATE)
 		.switchMap((action : todoActions.TodoUpdate) => {
 			return this.http
-			.put(`/rest/todo-list/${action.payload.id}`, action.payload) 
-			.map(() => new todoActions.TodoUpdateSucceeded({id: action.payload.id, title: action.payload.title}))
+			.put(`/rest/todo-list/${action.payload._id}`, action.payload) 
+			.map(() => new todoActions.TodoUpdateSucceeded({_id: action.payload._id, title: action.payload.title}))
 			.catch(err => Observable.of(new todoActions.TodoUpdateFailed(err)));
 		});
 
@@ -50,8 +50,8 @@ export class TodoEffects {
 		.ofType(todoActions.TODO_TOGGLE)
 		.switchMap((action : todoActions.TodoToggle) => {
 			return this.http
-			.put(`/rest/todo-list/${action.payload.id}`, action.payload) 
-			.map(() => new todoActions.TodoToggleSucceeded({id: action.payload.id, status: action.payload.status}))
+			.put(`/rest/todo-list/${action.payload._id}`, action.payload) 
+			.map(() => new todoActions.TodoToggleSucceeded({_id: action.payload._id, status: action.payload.status}))
 			.catch(err => Observable.of(new todoActions.TodoToggleFailed(err)));
 		});
  
@@ -69,7 +69,7 @@ export class TodoEffects {
 		.switchMap((action : todoActions.TodoRemoveAll) => { 
 			return this.http
 			.delete(`/rest/todo-list-all`) 
-			.map(() => new todoActions.TodoRemoveAllSucceeded)
+			.map(() => new todoActions.TodoRemoveAllSucceeded())
 			.catch(err => Observable.of(new todoActions.TodoRemoveAllFailed(err)));
 		});
 }

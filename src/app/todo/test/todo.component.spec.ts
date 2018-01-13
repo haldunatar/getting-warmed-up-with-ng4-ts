@@ -53,7 +53,7 @@ describe('Todo Component: ', () => {
 		});
 	
 		it('should retrieve todos(state)', () => { 
-			const payload: any = {id: '_334', title: 'Shopping', status: false };  
+			const payload: any = {_id: '_334', title: 'Shopping', status: false };  
 			spyOn(store, 'dispatch').and.callThrough();
 	
 			store.dispatch(new todoActions.TodoLoadSucceeded(payload));
@@ -65,7 +65,7 @@ describe('Todo Component: ', () => {
 					{ 
 						loading: false, 
 						todos: [
-							{ id: '_334', title: 'Shopping', status: false }
+							{ _id: '_334', title: 'Shopping', status: false }
 						] 
 					}
 				) 
@@ -112,7 +112,7 @@ describe('Todo Component: ', () => {
 			component.editTodo(todoIdToBeEdited);
 
 			const action = new todoActions.TodoUpdate(
-				{ id: todoIdToBeEdited, title: 'some new title' }
+				{ _id: todoIdToBeEdited, title: 'some new title' }
 			);
 
 			expect(component.isEmptyEditingWarning).toBeFalsy();
@@ -126,7 +126,7 @@ describe('Todo Component: ', () => {
 			const todo = { _id: '123', status: false };
 			spyOn(store, 'dispatch');
 
-			const action = new todoActions.TodoToggle({id: todo._id, status: true});
+			const action = new todoActions.TodoToggle({_id: todo._id, status: true});
 
 			component.checkTodo(todo);
 
@@ -137,7 +137,7 @@ describe('Todo Component: ', () => {
 			const todo = { _id: '123', status: true };
 			spyOn(store, 'dispatch');
 
-			const action = new todoActions.TodoToggle({id: todo._id, status: false});
+			const action = new todoActions.TodoToggle({_id: todo._id, status: false});
 
 			component.checkTodo(todo);
 

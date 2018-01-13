@@ -38,19 +38,19 @@ export class TodoComponent implements OnInit {
 		}
 	}
  
-	editTodo(id) { 
+	editTodo(_id) { 
 		if (this.editTodoTitle === undefined || this.editTodoTitle === '') {
 			this.isEmptyEditingWarning = true;
 			setTimeout(() => this.isEmptyEditingWarning = false, 2000);
 		} else {
-			this.store.dispatch(new todoActions.TodoUpdate({id, title: this.editTodoTitle}));
+			this.store.dispatch(new todoActions.TodoUpdate({_id, title: this.editTodoTitle}));
 			this.editTodoTitle = '';
 		}
 	}
 
 	checkTodo(item) {
 		const status = !item.status; 
-		this.store.dispatch(new todoActions.TodoToggle({id: item._id, status}));
+		this.store.dispatch(new todoActions.TodoToggle({_id: item._id, status}));
 	}
 
 	removeTodo(todoId) { 

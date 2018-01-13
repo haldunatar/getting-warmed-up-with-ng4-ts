@@ -1,6 +1,5 @@
 import * as todoActions from '../actions/todo.action';
-import { Todo } from '../../model/todo';
-import { TodoAddSucceeded } from '../index';
+import { Todo } from '../../model/todo'; 
 
 export interface TodoState {
 	todos	: Todo[];
@@ -30,7 +29,7 @@ function todoLoadSucceeded(state, action) {
 function todoLoadFailed(state, action) {
 	return {
 		loading	: false,
-		error 	: 'Todo todos cannot be retrieved!',		
+		error 	: 'Todo cannot be retrieved!',		
 		todos	: [...state.todos]
 	}
 }
@@ -53,7 +52,7 @@ function todoAddSucceeded(state, action) {
 function todoAddFailed(state, action) {
 	return {
 		loading	: false,
-		error 	: 'Todo todos cannot be retrieved!',		
+		error 	: 'Add new todo action is failed',		
 		todos	: [...state.todos]
 	}
 }
@@ -67,15 +66,16 @@ function todoUpdate(state, action) {
 }
 
 function todoUpdateSucceeded(state, action) { 
-	const todos = state.todos.map(todo => {  
-		if(todo._id !== action.payload.id) { return todo;}
-  
+	const todos = state.todos.map(todo => {
+
+		if(todo._id !== action.payload._id) { return todo; } 
+		
 		return {
 			...todo,
 			title: action.payload.title
 		}
 	});
-	  
+ 
 	return {
 		loading: false,
 		todos
@@ -100,7 +100,7 @@ function todoToggle(state, action) {
 
 function todoToggleSucceeded(state, action) {  
 	const todos = state.todos.map(todo => {
-		if (todo._id !== action.payload.id) { return todo; }
+		if (todo._id !== action.payload._id) { return todo; }
 	
 		return { 
 			...todo,
@@ -117,6 +117,7 @@ function todoToggleSucceeded(state, action) {
 function todoToggleFailed(state, action) {
 	return {
 		loading	: false,
+		error 	: 'Todo status cannot be updated!',
 		todos	: [...state.todos]
 	}
 }
@@ -166,7 +167,8 @@ function todoRemoveAllSucceeded(state, action) {
 function todoRemoveAllFailed(state, action) {
 	return {
 		loading	: false,
-		todos	: [...state]
+		error: 'Todos cannot be removed!',
+		todos	: []
 	}
 }
 
@@ -200,3 +202,6 @@ export function todoReducer(state = initialState, action: todoActions.TodoAction
 		default: state;
 	} 
 }
+
+export const todoLoading 	= (state: TodoState) => state.loading;
+export const getTodos		= (state: TodoState) => state.todos;
