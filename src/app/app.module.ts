@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -34,7 +36,8 @@ const appRoutes: Routes = [
 		StoreModule.forRoot({ 
 			todos: todoStore.todoReducer
 		 }),
-		EffectsModule.forRoot([todoStore.TodoEffects])
+		EffectsModule.forRoot([todoStore.TodoEffects]),
+		StoreDevtoolsModule.instrument()
 		
 	],
 	providers: [TodoResolver],
