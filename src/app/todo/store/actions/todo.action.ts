@@ -58,7 +58,7 @@ export class TodoAdd implements Action {
 export class TodoAddSucceeded implements Action {
 	readonly type = TODO_ADD_SUCCEEDED;
 
-	constructor(public payload: {title: Todo['title']}) {}
+	constructor(public payload: Todo[]) {}
 }
 
 export class TodoAddFailed implements Action {

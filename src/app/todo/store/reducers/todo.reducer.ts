@@ -66,26 +66,30 @@ function todoAddSucceeded(state: TodoState, action: todoActions.TodoAddSucceeded
 	}
 }
 
-function todoAddFailed(state, action) {
+function todoAddFailed(state: TodoState, action: todoActions.TodoAddFailed) {
 	return {
-		loading	: false,
-		error 	: 'Add new todo action is failed',		
-		todos	: [...state.todos]
+		activeTodos		: state.activeTodos,
+		completedTodos	: state.completedTodos,
+		error 			: 'Add new todo action is failed',	
+		loading			: false,	
+		todos			: state.todos
 	}
 }
 
 // Reducer func: Update Todo
-function todoUpdate(state, action) {
+function todoUpdate(state: TodoState, action: todoActions.TodoUpdate) {
 	return {
-		loading	: true,
-		todos	: [...state.todos]
+		activeTodos		: state.activeTodos,
+		completedTodos	: state.completedTodos,
+		loading			: true,	
+		todos			: state.todos
 	}
 }
 
-function todoUpdateSucceeded(state, action) { 
+function todoUpdateSucceeded(state: TodoState, action: todoActions.TodoUpdateSucceeded) { 
 	const todos = state.todos.map(todo => {
 
-		if(todo._id !== action.payload._id) { return todo; } 
+		if (todo._id !== action.payload._id) { return todo; } 
 		
 		return {
 			...todo,
@@ -94,28 +98,34 @@ function todoUpdateSucceeded(state, action) {
 	});
  
 	return {
-		loading: false,
+		activeTodos		: state.activeTodos,
+		completedTodos	: state.completedTodos,
+		loading			: false,	
 		todos
 	}
 }
 
-function todoUpdateFailed(state, action) {
+function todoUpdateFailed(state: TodoState, action: todoActions.TodoUpdateFailed) {
 	return {
-		loading	: false,
-		error 	: 'Todo cannot be updated!',	
-		todos	: [...state.todos]
+		activeTodos		: state.activeTodos,
+		completedTodos	: state.completedTodos,
+		error			: 'Todo cannot be updated!',
+		loading			: false,		
+		todos			: state.todos
 	}
 }
 
 // Reducer func: Toggle Todo
-function todoToggle(state, action) {
+function todoToggle(state: TodoState, action: todoActions.TodoToggle) {
 	return {
-		loading	: true,
-		todos	: [...state.todos]
+		activeTodos		: state.activeTodos,
+		completedTodos	: state.completedTodos,
+		loading			: true,	
+		todos			: state.todos
 	}
 }
 
-function todoToggleSucceeded(state, action) {  
+function todoToggleSucceeded(state: TodoState, action: todoActions.TodoToggleSucceeded) {  
 	const todos = state.todos.map(todo => {
 		if (todo._id !== action.payload._id) { return todo; }
 	
@@ -126,7 +136,9 @@ function todoToggleSucceeded(state, action) {
 	});
  
 	return {
-		loading: false,
+		activeTodos		: action.payload.status ? state.activeTodos: [...state.activeTodos, ...]
+		completedTodos	: state.completedTodos,
+		loading			: false,	
 		todos
 	}
 }
