@@ -16,15 +16,22 @@ import { Todo } from './model/todo';
 export class TodoComponent implements OnInit {
  
 	todos$	: Observable<Todo[]>;
+	todos	: Array<Todo[]>; 
 	newTodo	: string;
 	isEmptyWarning: boolean;
 	isEmptyEditingWarning: boolean;
 	editTodoTitle: string; 
+	completedTodos$: Observable<any>;
  
-	constructor(private store: Store<fromReducer.TodoState>) { }
+	constructor(private store: Store<any>) { }
 
 	ngOnInit() {  
 		this.todos$ = this.store.select('todos');
+		this.store.select(fromReducer.getCompletedTodos)
+			.subscribe(list => {
+				this.todos = list
+				console.log('list', this.todos)
+			})
 	}
  
 	addTodo() { 

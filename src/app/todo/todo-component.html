@@ -1,4 +1,4 @@
-<section class="todo-component"> 
+<!-- <section class="todo-component"> 
     <h2 class="todo-component__title">Todo App</h2>
  
     <input type="text"
@@ -74,3 +74,8 @@
 			<div class="sk-cube3 sk-cube"></div>
 	</div>
 </ng-container>
+-->
+
+<p *ngFor="let completedTodo of todos">
+	CompletedTodo: {{completedTodo.title}}
+</p> 
