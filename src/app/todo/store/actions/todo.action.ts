@@ -39,7 +39,7 @@ export class TodoLoad implements Action {
 export class TodoLoadSucceeded implements Action {
 	readonly type = TODO_LOAD_SUCCEEDED;
 
-	constructor(public payload: Array<Todo>) {}
+	constructor(public payload: Todo[]) {}
 }
 
 export class TodoLoadFailed implements Action {

@@ -4,13 +4,12 @@ import { Todo } from '../../model/todo';
 
 export * from './todo.reducer';
 
-// export interface TodosState {
-// 	todos: Todo[]
-// }
-
-export const reducers = {
+export interface TodoListState {
+	todos: fromReducer.TodoState
+}
+ 
+export const reducers: ActionReducerMap<TodoListState> = {
 	todos: fromReducer.todoReducer
 }
 
-export const getTodosState = createFeatureSelector
-<fromReducer.TodoState>('todos');
+export const getTodosListState = createFeatureSelector<TodoListState>('todosStore');

@@ -2,8 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import * as todoActions from './store/actions';
-import * as fromReducer from './store/reducers/todo.reducer';
+import * as todoStore from './store/';
 
 import { Todo } from './model/todo';
 
@@ -16,7 +15,7 @@ import { Todo } from './model/todo';
 export class TodoComponent implements OnInit {
  
 	todos$	: Observable<Todo[]>;
-	todos	: Array<Todo[]>; 
+	todos	: any; 
 	newTodo	: string;
 	isEmptyWarning: boolean;
 	isEmptyEditingWarning: boolean;
@@ -26,12 +25,7 @@ export class TodoComponent implements OnInit {
 	constructor(private store: Store<any>) { }
 
 	ngOnInit() {  
-		this.todos$ = this.store.select('todos');
-		this.store.select(fromReducer.getCompletedTodos)
-			.subscribe(list => {
-				this.todos = list
-				console.log('list', this.todos)
-			})
+		this.todos$ = this.store.select(todoStore.getAllTodos);
 	}
  
 	addTodo() { 
@@ -40,7 +34,7 @@ export class TodoComponent implements OnInit {
 			this.isEmptyWarning = true;
 			setTimeout(() => this.isEmptyWarning = false, 2000);
 		} else {
-			this.store.dispatch(new todoActions.TodoAdd({ title: this.newTodo, status: false }))
+			this.store.dispatch(new todoStore.TodoAdd({ title: this.newTodo, status: false }))
 			this.newTodo = '';
 		}
 	}
@@ -50,22 +44,22 @@ export class TodoComponent implements OnInit {
 			this.isEmptyEditingWarning = true;
 			setTimeout(() => this.isEmptyEditingWarning = false, 2000);
 		} else {
-			this.store.dispatch(new todoActions.TodoUpdate({_id, title: this.editTodoTitle}));
+			this.store.dispatch(new todoStore.TodoUpdate({_id, title: this.editTodoTitle}));
 			this.editTodoTitle = '';
 		}
 	}
 
 	checkTodo(item) {
 		const status = !item.status; 
-		this.store.dispatch(new todoActions.TodoToggle({_id: item._id, status}));
+		this.store.dispatch(new todoStore.TodoToggle({_id: item._id, status}));
 	}
 
 	removeTodo(todoId) { 
-		this.store.dispatch(new todoActions.TodoRemove(todoId));
+		this.store.dispatch(new todoStore.TodoRemove(todoId));
 	}
 
 	clearTodos() {
-		this.store.dispatch(new todoActions.TodoRemoveAll);
+		this.store.dispatch(new todoStore.TodoRemoveAll);
 	}
 
 	watchTodos(index, item) { 

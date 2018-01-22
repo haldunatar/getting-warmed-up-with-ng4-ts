@@ -1,4 +1,4 @@
-<!-- <section class="todo-component"> 
+<section class="todo-component"> 
     <h2 class="todo-component__title">Todo App</h2>
  
     <input type="text"
@@ -14,7 +14,7 @@
  
     <div class="todo-component__list" *ngIf="(todos$ | async)">
         <ul>
-            <li *ngFor="let item of (todos$ | async).todos; trackBy: watchTodos" class="list-item">
+            <li *ngFor="let item of (todos$ | async); trackBy: watchTodos" class="list-item">
                 <input type="checkbox" 
                     class="list-item__check" 
                     [(ngModel)]="item.status" 
@@ -22,9 +22,9 @@
                     *ngIf="!item.edit">
 
                 <span class="list-item__title" 
-                     [ngClass]="{'todo-item--checked': item.status}"
-                     *ngIf="!item.edit"
-                     (dblclick)="item.edit = !item.edit">
+                    [ngClass]="{'todo-item--checked': item.status}"
+                    *ngIf="!item.edit"
+                    (dblclick)="item.edit = !item.edit">
                     <b>{{item.title}}</b>
                 </span> 
  
@@ -55,7 +55,7 @@
         </ul>
     </div>
  
-    <div class="button-container" *ngIf="(todos$ | async) && (todos$ | async).todos.length > 0">
+    <div class="button-container" *ngIf="(todos$ | async) && (todos$ | async).length > 0">
         <button type="button" 
             class="todo-component__clear"  
             
@@ -74,8 +74,4 @@
 			<div class="sk-cube3 sk-cube"></div>
 	</div>
 </ng-container>
--->
-
-<p *ngFor="let completedTodo of todos">
-	CompletedTodo: {{completedTodo.title}}
-</p> 
+ 

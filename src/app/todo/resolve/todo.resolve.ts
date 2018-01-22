@@ -3,8 +3,7 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Todo } from '../model/todo';
-import * as todoActions from '../store/actions';
-import { TodoState } from '../store/reducers'; 
+import * as todoStore from '../store/';
 
 @Injectable()
 export class TodoResolver implements Resolve<any> {
@@ -15,12 +14,13 @@ export class TodoResolver implements Resolve<any> {
 
 	resolve() {
 		if (this.todoCache) {
-			return new todoActions.TodoLoadSucceeded(this.todoCache);
+			return new todoStore.TodoLoadSucceeded(this.todoCache);
 		}
 		 
-		this.store.dispatch(new todoActions.TodoLoad);
+		this.store.dispatch(new todoStore.TodoLoad);
 
-		this.store.select('todoStore').subscribe((data: TodoState) => {
+		this.store.select('todosStore')
+			.subscribe((data: any) => { 
 			 
 			if (data && !data.error && data.todos && data.todos.length > 0) {
 				this.todoCache = data.todos;
