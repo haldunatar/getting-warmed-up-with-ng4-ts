@@ -34,7 +34,7 @@ const appRoutes: Routes = [
 			{ enableTracing: false }
 		),
 		StoreModule.forRoot({}),
-		 StoreModule.forFeature('todosStore', todoStore.reducers),
+		StoreModule.forFeature('todosStore', todoStore.reducers),
 		EffectsModule.forRoot([todoStore.TodoEffects]),
 		StoreDevtoolsModule.instrument()
 		

@@ -27,9 +27,8 @@ describe('Todo Component: ', () => {
 			declarations: [TodoComponent],
 			imports: [FormsModule, 
 				HttpClientModule,
-				StoreModule.forRoot(
-					{ todos: todoStore.todoReducer }
-				), 
+				StoreModule.forRoot({}),
+				StoreModule.forFeature('todosStore', todoStore.reducers), 
 				EffectsModule.forRoot([todoStore.TodoEffects])
 			],
 			providers: [Store,TodoResolver]
@@ -53,21 +52,18 @@ describe('Todo Component: ', () => {
 		});
 	
 		it('should retrieve todos(state)', () => { 
-			const payload: any = {_id: '_334', title: 'Shopping', status: false };  
+			const payload: any = [{_id: '123sed', title: 'windsurfing', status: false}];  
 			spyOn(store, 'dispatch').and.callThrough();
 	
 			store.dispatch(new todoActions.TodoLoadSucceeded(payload));
 	 
 			fixture.detectChanges();
-	
+
 			component.todos$.subscribe(todos => {
 				expect(todos).toEqual(
-					{ 
-						loading: false, 
-						todos: [
-							{ _id: '_334', title: 'Shopping', status: false }
-						] 
-					}
+					[
+						{_id: '123sed', title: 'windsurfing', status: false}
+					]
 				) 
 			})
 		}); 
