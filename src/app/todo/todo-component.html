@@ -14,7 +14,7 @@
  
     <div class="todo-component__list" *ngIf="(todos$ | async)">
         <ul>
-            <li *ngFor="let item of (todos$ | async); trackBy: watchTodos" class="list-item">
+            <li *ngFor="let item of (todos$ | async).slice().reverse(); trackBy: watchTodos" class="list-item">
                 <input type="checkbox" 
                     class="list-item__check" 
                     [(ngModel)]="item.status" 
