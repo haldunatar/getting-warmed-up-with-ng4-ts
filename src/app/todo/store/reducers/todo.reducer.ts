@@ -86,22 +86,21 @@ function todoUpdate(state: TodoState, action: todoActions.TodoUpdate) {
 	}
 }
 
-function todoUpdateSucceeded(state: TodoState, action: todoActions.TodoUpdateSucceeded) { 
-	const todos = state.todos.map(todo => {
-
+function todoUpdateSucceeded(state: TodoState, action: todoActions.TodoUpdateSucceeded) {
+	function updateTodo(todo) {
 		if (todo._id !== action.payload._id) { return todo; } 
 		
 		return {
 			...todo,
 			title: action.payload.title
 		}
-	});
+	}
  
 	return {
-		activeTodos		: state.activeTodos,
-		completedTodos	: state.completedTodos,
+		activeTodos		: state.activeTodos.map(updateTodo), 
+		completedTodos	: state.completedTodos.map(updateTodo), 
 		loading			: false,	
-		todos
+		todos			: state.todos.map(updateTodo)
 	}
 }
 
