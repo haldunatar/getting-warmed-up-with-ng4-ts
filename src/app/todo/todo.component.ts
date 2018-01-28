@@ -22,7 +22,7 @@ export class TodoComponent implements OnInit {
 	editTodoTitle: string; 
 	completedTodos$: Observable<any>;
  
-	constructor(private store: Store<any>) { }
+	constructor(private store: Store<todoStore.TodoState>) { }
 
 	ngOnInit() {  
 		this.todos$ = this.store.select(todoStore.getAllTodos);
