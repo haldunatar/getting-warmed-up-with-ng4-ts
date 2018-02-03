@@ -1,69 +1,69 @@
 <section class="todo-component"> 
-    <h2 class="todo-component__title">Todo App</h2>
+	<h2 class="todo-component__title">Todo App</h2>
+	
+	<form #todoForm="ngForm">
+		<input type="text"
+			autocomplete="off"
+			class="todo-input"
+			name="newTodo"
+			placeholder="Note something to do..."
+			required
+			[(ngModel)]="newTodo"
+			#todoInput="ngModel"
+			(keyup.enter)="todoInput.valid ? addTodo() : false; newTodo = ''; entered = true">
  
-    <input type="text"
-        class="todo-input"
-        name="newTodo"
-        [(ngModel)]="newTodo"
-        (keyup.enter)="addTodo()"
-        placeholder="Note something to do...">
+		<div class="todo-component__list" *ngIf="(todos$ | async)">
+			<ul>
+				<li *ngFor="let item of (todos$ | async).slice().reverse(); trackBy: watchTodos" class="list-item">
+					<input type="checkbox" 
+						class="list-item__check" 
+						[(ngModel)]="item.status"
+						[ngModelOptions]="{standalone: true}" 
+						(click)="checkTodo(item)"
+						*ngIf="!item.edit">
 
-    <div class="todo-warning" *ngIf="isEmptyWarning">
-        <b>You can't create a TODO without a title right?;)</b>
-    </div>
- 
-    <div class="todo-component__list" *ngIf="(todos$ | async)">
-        <ul>
-            <li *ngFor="let item of (todos$ | async).slice().reverse(); trackBy: watchTodos" class="list-item">
-                <input type="checkbox" 
-                    class="list-item__check" 
-                    [(ngModel)]="item.status" 
-                    (click)="checkTodo(item)"
-                    *ngIf="!item.edit">
+					<span class="list-item__title" 
+						[ngClass]="{'todo-item--checked': item.status}"
+						*ngIf="!item.edit"
+						(dblclick)="item.edit = !item.edit">
+						<b>{{item.title}}</b>
+					</span> 
+	
+					<input type="text" 
+						autocomplete="off"
+						class="list-item__edit-input"
+						name="editTodo"
+						placeholder="editing : {{item.title}}"  
+						required
+						*ngIf="item.edit"
+						[(ngModel)]="editTodoTitle"
+						#editTodoInput="ngModel"
+						(keyup.enter)="editTodoInput.valid ? editTodo(item._id, editTodoInput.value) : false; item.edit = !item.edit; editTodoTitle = ''">
 
-                <span class="list-item__title" 
-                    [ngClass]="{'todo-item--checked': item.status}"
-                    *ngIf="!item.edit"
-                    (dblclick)="item.edit = !item.edit">
-                    <b>{{item.title}}</b>
-                </span> 
- 
-                <input type="text" 
-                    class="list-item__edit-input"
-                    placeholder="editing : {{item.title}}"  
-                    *ngIf="item.edit"
-                    [(ngModel)]="editTodoTitle"
-                    (keyup.enter)="item.edit = !item.edit; editTodo(item._id);"
-                    todoFocus>
+					<span class="list-item__remove" 
+						(click)="removeTodo(item._id)"
+						*ngIf="!item.edit">
+						X
+					</span> 
 
-                <span class="list-item__remove" 
-                    (click)="removeTodo(item._id)"
-                    *ngIf="!item.edit">
-                    X
-                </span> 
-
-                <span class="list-item__remove" 
-                    (click)="item.edit = !item.edit"
-                    *ngIf="item.edit">
-                    &#8605;
-                </span> 
-
-                <div class="todo-warning" *ngIf="isEmptyEditingWarning">
-                    <b>new title..? or just click cancel button!</b>
-                </div>
-            </li>
-        </ul>
-    </div>
- 
-    <div class="button-container" *ngIf="(todos$ | async) && (todos$ | async).length > 0">
-        <button type="button" 
-            class="todo-component__clear"  
-            
-            (click)="clearTodos()">
-            Clear Todos
-        </button>
-        
-    </div>
+					<span class="list-item__remove" 
+						(click)="item.edit = !item.edit"
+						*ngIf="item.edit">
+						&#8605;
+					</span>
+				</li>
+			</ul>
+		</div>
+	
+		<div class="button-container" *ngIf="(todos$ | async) && (todos$ | async).length > 0">
+			<button type="button" 
+				class="todo-component__clear"  
+				(click)="clearTodos()">
+				Clear Todos
+			</button>
+			
+		</div> 
+	</form>
 </section>   
 
 <ng-container *ngIf="(todos$ | async) && (todos$ | async).loading">

@@ -15,12 +15,8 @@ import { Todo } from './model/todo';
 export class TodoComponent implements OnInit {
  
 	todos$	: Observable<Todo[]>;
-	todos	: any; 
 	newTodo	: string;
-	isEmptyWarning: boolean;
-	isEmptyEditingWarning: boolean;
-	editTodoTitle: string; 
-	completedTodos$: Observable<any>;
+	editTodoTitle: string;
  
 	constructor(private store: Store<todoStore.TodoState>) { }
 
@@ -29,29 +25,15 @@ export class TodoComponent implements OnInit {
 	}
  
 	addTodo() { 
-		if (this.newTodo === undefined || this.newTodo === '') {
-
-			this.isEmptyWarning = true;
-			setTimeout(() => this.isEmptyWarning = false, 2000);
-		} else {
-			this.store.dispatch(new todoStore.TodoAdd({ title: this.newTodo, status: false }))
-			this.newTodo = '';
-		}
+		this.store.dispatch(new todoStore.TodoAdd({ title: this.newTodo, status: false })); 
 	}
  
-	editTodo(_id) { 
-		if (this.editTodoTitle === undefined || this.editTodoTitle === '') {
-			this.isEmptyEditingWarning = true;
-			setTimeout(() => this.isEmptyEditingWarning = false, 2000);
-		} else {
-			this.store.dispatch(new todoStore.TodoUpdate({_id, title: this.editTodoTitle}));
-			this.editTodoTitle = '';
-		}
+	editTodo(_id, title) {
+		this.store.dispatch(new todoStore.TodoUpdate({_id, title}));
 	}
 
-	checkTodo(item) {
-		const status = !item.status; 
-		this.store.dispatch(new todoStore.TodoToggle({_id: item._id, status}));
+	checkTodo(todo) {
+		this.store.dispatch(new todoStore.TodoToggle({_id: todo._id, status: !todo.status}));
 	}
 
 	removeTodo(todoId) { 
