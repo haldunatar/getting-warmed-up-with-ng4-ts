@@ -12,7 +12,8 @@ const Schema = mongoose.Schema;
 
 const todoShema = new Schema({ 
     title: { type: String },
-    status: { type: Boolean }
+	status: { type: Boolean },
+	versionKey: false
 }); 
 
 const Todo = mongoose.model('Todo', todoShema);
