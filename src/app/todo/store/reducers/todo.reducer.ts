@@ -20,41 +20,25 @@ export const initialState: TodoState = {
  
 // Reducer func: Load Todos
 function todoLoad(state: TodoState, action: todoActions.TodoLoad) { 
-	return {
-		activeTodos		: state.activeTodos,
-		completedTodos	: state.completedTodos,
-		loading			: true,
-		todos			: state.todos
-	}
+	return { ...initialState, loading: true };
 }
 
 function todoLoadSucceeded(state: TodoState, action: todoActions.TodoLoadSucceeded) {
 	return {
-		activeTodos		: action.payload.filter(todo => !todo.status),
-		completedTodos	: action.payload.filter(todo => todo.status),
+		activeTodos		: [...state.activeTodos, ...action.payload.filter(todo => !todo.status)],
+		completedTodos	: [...state.activeTodos, ...action.payload.filter(todo => todo.status)],
 		loading			: false,
 		todos			: [...state.todos, ...action.payload]
 	}
 }
 
 function todoLoadFailed(state: TodoState, action: todoActions.TodoLoadFailed) {
-	return {
-		activeTodos		: state.activeTodos,
-		error 			: 'Todos cannot be retrieved!',
-		completedTodos	: state.completedTodos,
-		loading			: false,
-		todos			: state.todos
-	}
+	return {...initialState, error : 'Todos cannot be retrieved!' }
 }
 
 // Reducer func: Add Todo
 function todoAdd(state: TodoState, action: todoActions.TodoAdd) {
-	return {
-		activeTodos		: state.activeTodos,
-		completedTodos	: state.completedTodos,
-		loading			: true,
-		todos			: state.todos
-	}
+	return { ...state, loading: true };
 }
 
 function todoAddSucceeded(state: TodoState, action: todoActions.TodoAddSucceeded) { 
@@ -67,23 +51,12 @@ function todoAddSucceeded(state: TodoState, action: todoActions.TodoAddSucceeded
 }
 
 function todoAddFailed(state: TodoState, action: todoActions.TodoAddFailed) {
-	return {
-		activeTodos		: state.activeTodos,
-		completedTodos	: state.completedTodos,
-		error 			: 'Add new todo action is failed',	
-		loading			: false,	
-		todos			: state.todos
-	}
+	return { ...state, error : 'Add new todo action is failed' }
 }
 
 // Reducer func: Update Todo
 function todoUpdate(state: TodoState, action: todoActions.TodoUpdate) {
-	return {
-		activeTodos		: state.activeTodos,
-		completedTodos	: state.completedTodos,
-		loading			: true,	
-		todos			: state.todos
-	}
+	return { ...state, loading: true };
 }
 
 function todoUpdateSucceeded(state: TodoState, action: todoActions.TodoUpdateSucceeded) {
@@ -105,23 +78,12 @@ function todoUpdateSucceeded(state: TodoState, action: todoActions.TodoUpdateSuc
 }
 
 function todoUpdateFailed(state: TodoState, action: todoActions.TodoUpdateFailed) {
-	return {
-		activeTodos		: state.activeTodos,
-		completedTodos	: state.completedTodos,
-		error			: 'Todo cannot be updated!',
-		loading			: false,		
-		todos			: state.todos
-	}
+	return {...state, error	: 'Todo cannot be updated!' }
 }
 
 // Reducer func: Toggle Todo
 function todoToggle(state: TodoState, action: todoActions.TodoToggle) {
-	return {
-		activeTodos		: state.activeTodos,
-		completedTodos	: state.completedTodos,
-		loading			: true,	
-		todos			: state.todos
-	}
+	return { ...state, loading: true };
 }
 
 function todoToggleSucceeded(state: TodoState, action: todoActions.TodoToggleSucceeded) {  
@@ -143,23 +105,12 @@ function todoToggleSucceeded(state: TodoState, action: todoActions.TodoToggleSuc
 }
 
 function todoToggleFailed(state: TodoState, action: todoActions.TodoToggleFailed) {
-	return {
-		activeTodos		: state.activeTodos,
-		completedTodos	: state.completedTodos,
-		error			: 'The todo status cannot be updated!',
-		loading			: false,	
-		todos			: state.todos
-	}
+	return {...state, error: 'The todo status cannot be updated!'};
 }
 
 // Reducer func: Remove Todo
 function todoRemove(state: TodoState, action: todoActions.TodoRemove) {
-	return {
-		activeTodos		: state.activeTodos,
-		completedTodos	: state.completedTodos,
-		loading			: true,	
-		todos			: state.todos
-	}
+	return { ...state, loading: true };
 }
 
 function todoRemoveSucceeded(state: TodoState, action: todoActions.TodoRemoveSucceeded) {
@@ -174,23 +125,12 @@ function todoRemoveSucceeded(state: TodoState, action: todoActions.TodoRemoveSuc
 }
 
 function todoRemoveFailed(state: TodoState, action: todoActions.TodoRemoveFailed) {
-	return {
-		activeTodos		: state.activeTodos,
-		completedTodos	: state.completedTodos,
-		error			: 'Todo cannnot be removed!',
-		loading			: false,	
-		todos			: state.todos
-	}
+	return {...state, error: 'Todo cannnot be removed!'};
 }
 
 // Reducer func: Remove All Todos
 function todoRemoveAll(state: TodoState, action: todoActions.TodoRemoveAll) {
-	return {
-		activeTodos		: state.activeTodos,
-		completedTodos	: state.completedTodos,
-		loading			: true,	
-		todos			: state.todos
-	}
+	return { ...state, loading: true };
 }
 
 function todoRemoveAllSucceeded(state: TodoState, action: todoActions.TodoRemoveAllSucceeded) { 
@@ -198,13 +138,7 @@ function todoRemoveAllSucceeded(state: TodoState, action: todoActions.TodoRemove
 }
 
 function todoRemoveAllFailed(state: TodoState, action: todoActions.TodoRemoveAllFailed) {
-	return {
-		activeTodos		: state.activeTodos,
-		completedTodos	: state.completedTodos,
-		error			: 'Todos cannot be removed',
-		loading			: false,	
-		todos			: state.todos
-	}
+	return {...state, error: 'Todos cannot be removed!'};
 }
 
 export function todoReducer(state = initialState, action: todoActions.TodoActions): TodoState {
