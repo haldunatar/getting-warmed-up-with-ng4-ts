@@ -68,7 +68,7 @@ export class TodoEffects {
 		.ofType(todoActions.TODO_REMOVE_ALL)
 		.switchMap((action: todoActions.TodoRemoveAll) => {
 			return this.http
-				.delete(`todo-list-all`)
+				.delete(`todo-list`) // TODO: fix!
 				.map(() => new todoActions.TodoRemoveAllSucceeded())
 				.catch(err => Observable.of(new todoActions.TodoRemoveAllFailed(err)));
 		});

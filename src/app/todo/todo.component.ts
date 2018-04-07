@@ -28,7 +28,7 @@ export class TodoComponent implements OnInit {
 		this.store.dispatch(new todoStore.TodoAdd({ title: this.newTodo, status: false })); 
 	}
  
-	editTodo(id, title) {
+	editTodo(id, title) { // TODO: pass whole todo to update only title // json-server issue
 		this.store.dispatch(new todoStore.TodoUpdate({id, title}));
 	}
 

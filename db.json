@@ -1,14 +1,12 @@
 {
   "todo-list": [
     {
-      "title": "shopping",
-      "status": false,
-      "id": 0
+      "id": 1,
+      "title": "asdasd"
     },
     {
-      "id": 1,
-      "title": "windsurfing",
-      "status": true
+      "id": 3,
+      "title": "changed was checked"
     }
   ]
 }
