@@ -38,10 +38,10 @@
 						*ngIf="item.edit"
 						[(ngModel)]="editTodoTitle"
 						#editTodoInput="ngModel"
-						(keyup.enter)="editTodoInput.valid ? editTodo(item._id, editTodoInput.value) : false; item.edit = !item.edit; editTodoTitle = ''">
+						(keyup.enter)="editTodoInput.valid ? editTodo(item.id, editTodoInput.value) : false; item.edit = !item.edit; editTodoTitle = ''">
 
 					<span class="list-item__remove" 
-						(click)="removeTodo(item._id)"
+						(click)="removeTodo(item.id)"
 						*ngIf="!item.edit">
 						X
 					</span> 

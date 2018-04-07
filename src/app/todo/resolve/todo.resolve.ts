@@ -12,23 +12,10 @@ export class TodoResolver implements Resolve<any> {
 
 	constructor(private store: Store<any>) { }
 
-	resolve() {
-		if (this.todoCache) {
-			return new todoStore.TodoLoadSucceeded(this.todoCache);
-		}
-		 
+	resolve() { 
 		this.store.dispatch(new todoStore.TodoLoad);
 
-		this.store.select('todosStore')
-			.subscribe((data: any) => { 
-			 
-			if (data && !data.error && data.todos && data.todos.length > 0) {
-				this.todoCache = data.todos;
-			}
-		});
+	 
 	}
-
-	clearCache() {
-		this.todoCache = null;
-	}
+ 
 }

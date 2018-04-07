@@ -28,12 +28,12 @@ export class TodoComponent implements OnInit {
 		this.store.dispatch(new todoStore.TodoAdd({ title: this.newTodo, status: false })); 
 	}
  
-	editTodo(_id, title) {
-		this.store.dispatch(new todoStore.TodoUpdate({_id, title}));
+	editTodo(id, title) {
+		this.store.dispatch(new todoStore.TodoUpdate({id, title}));
 	}
 
 	checkTodo(todo) {
-		this.store.dispatch(new todoStore.TodoToggle({_id: todo._id, status: !todo.status}));
+		this.store.dispatch(new todoStore.TodoToggle({id: todo.id, title: todo.title, status: !todo.status}));
 	}
 
 	removeTodo(todoId) { 

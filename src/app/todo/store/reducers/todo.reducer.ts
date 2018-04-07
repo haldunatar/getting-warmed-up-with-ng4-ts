@@ -26,7 +26,7 @@ function todoLoad(state: TodoState, action: todoActions.TodoLoad) {
 function todoLoadSucceeded(state: TodoState, action: todoActions.TodoLoadSucceeded) {
 	return {
 		activeTodos		: [...state.activeTodos, ...action.payload.filter(todo => !todo.status)],
-		completedTodos	: [...state.activeTodos, ...action.payload.filter(todo => todo.status)],
+		completedTodos	: [...state.completedTodos, ...action.payload.filter(todo => todo.status)],
 		loading			: false,
 		todos			: [...state.todos, ...action.payload]
 	}
@@ -61,7 +61,7 @@ function todoUpdate(state: TodoState, action: todoActions.TodoUpdate) {
 
 function todoUpdateSucceeded(state: TodoState, action: todoActions.TodoUpdateSucceeded) {
 	function updateTodo(todo) {
-		if (todo._id !== action.payload._id) { return todo; } 
+		if (todo.id !== action.payload.id) { return todo; } 
 		
 		return {
 			...todo,
@@ -88,7 +88,7 @@ function todoToggle(state: TodoState, action: todoActions.TodoToggle) {
 
 function todoToggleSucceeded(state: TodoState, action: todoActions.TodoToggleSucceeded) {  
 	const todos = state.todos.map(todo => {
-		if (todo._id !== action.payload._id) { return todo; }
+		if (todo.id !== action.payload.id) { return todo; }
 	
 		return { 
 			...todo,
@@ -114,11 +114,11 @@ function todoRemove(state: TodoState, action: todoActions.TodoRemove) {
 }
 
 function todoRemoveSucceeded(state: TodoState, action: todoActions.TodoRemoveSucceeded) {
-	const todos = state.todos.filter(todo => todo._id !== action.payload);
+	const todos = state.todos.filter(todo => todo.id !== action.payload);
 
 	return {
-		activeTodos		: state.activeTodos.filter(todo => todo._id !== action.payload),
-		completedTodos	: state.completedTodos.filter(todo => todo._id !== action.payload),
+		activeTodos		: state.activeTodos.filter(todo => todo.id !== action.payload),
+		completedTodos	: state.completedTodos.filter(todo => todo.id !== action.payload),
 		loading			: false,
 		todos
 	}
