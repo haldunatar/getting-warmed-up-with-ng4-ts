@@ -28,10 +28,6 @@ export class TodoEffects {
 				.catch(err => Observable.of(new todoActions.TodoLoadFailed(err)));
 		});
 
-
-
-
-
 	@Effect() addTodo$: Observable<any> = this.action$
 		.ofType(todoActions.TODO_ADD)
 		.switchMap((action: todoActions.TodoAdd) => {

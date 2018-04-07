@@ -8,14 +8,9 @@ import * as todoStore from '../store/';
 @Injectable()
 export class TodoResolver implements Resolve<any> {
 	
-	todoCache: Array<Todo>;
-
 	constructor(private store: Store<any>) { }
 
 	resolve() { 
 		this.store.dispatch(new todoStore.TodoLoad);
-
-	 
 	}
- 
 }
